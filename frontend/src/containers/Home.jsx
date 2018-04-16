@@ -1,18 +1,26 @@
 import React, { Component } from "react";
-import HeaderMenu from "./../components/Header/Menu";
+import { Grid } from "semantic-ui-react";
+
+import Header from "./../components/Header/Header";
 import PostsList from "./../components/Posts/List";
-import { Container } from "semantic-ui-react";
+import CategoriesList from "./../components/Categories/List";
 
 export default class HomeContainer extends Component {
   render() {
     return (
-      <div className="home-container">
-        <Container>
-          <HeaderMenu />
+      <Grid columns={1} container>
+        <Grid.Column>
+          <Header />
+        </Grid.Column>
 
+        <Grid.Column mobile={16}>
+          <CategoriesList />
+        </Grid.Column>
+
+        <Grid.Column>
           <PostsList />
-        </Container>
-      </div>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
