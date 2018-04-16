@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import faker from "faker";
-import {
-  Item,
-  Button,
-  Icon,
-  Segment
-} from "semantic-ui-react";
+import { Item, Button, Icon, Segment } from "semantic-ui-react";
 
 export default class ItemPost extends Component {
   render() {
@@ -14,10 +9,6 @@ export default class ItemPost extends Component {
         <Segment>
           <Item.Group divided>
             <Item>
-              <Item.Image
-                rounded
-                src="https://react.semantic-ui.com/assets/images/avatar/large/stevie.jpg"
-              />
               <Item.Content>
                 <Item.Header as="a">{faker.lorem.sentence()}</Item.Header>
                 <Item.Meta>
@@ -26,7 +17,7 @@ export default class ItemPost extends Component {
                     <strong>Investiments</strong>
                   </span>
                 </Item.Meta>
-                <Item.Description>{faker.lorem.paragraph(5)}</Item.Description>
+                <Item.Description>{faker.lorem.paragraph(1)}</Item.Description>
                 <Item.Extra>
                   <Button basic size="mini" icon labelPosition="left">
                     <Icon name="chevron up" />
