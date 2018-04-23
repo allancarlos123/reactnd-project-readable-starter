@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import faker from "faker";
-import { Item, Button, Icon, Segment } from "semantic-ui-react";
+import { Item, Label, Button, Icon, Segment } from "semantic-ui-react";
 
 export default class ItemPost extends Component {
   render() {
@@ -13,20 +13,24 @@ export default class ItemPost extends Component {
                 <Item.Header as="a">{this.props.item.title}</Item.Header>
                 <Item.Meta>
                   <small>
-                    submitted 12 hours ago by <strong>{this.props.item.author}</strong> in{" "}
+                    submitted 12 hours ago by{" "}
+                    <strong>{this.props.item.author}</strong> in{" "}
                     <strong>{this.props.item.category}</strong>
                   </small>
                 </Item.Meta>
                 <Item.Description>{this.props.item.body}</Item.Description>
                 <Item.Extra>
-                  <Button basic size="mini" icon labelPosition="left">
+                  <Button basic size="mini" icon>
                     <Icon name="chevron up" />
-                    238
                   </Button>
-                  <Button basic size="mini" icon labelPosition="left">
-                    151
+                  <Button basic size="mini" icon>
                     <Icon name="chevron down" />
                   </Button>
+
+                  {this.props.item.voteScore > 0
+                  ? <Label circular color="green">{this.props.item.voteScore}</Label>
+                  : <Label circular color="red">{this.props.item.voteScore}</Label>
+                  }
                   <Icon name="comment outline" />
                   {this.props.item.commentCount} comments
                 </Item.Extra>
