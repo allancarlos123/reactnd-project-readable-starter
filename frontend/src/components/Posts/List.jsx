@@ -1,12 +1,36 @@
-import React, { Component } from 'react'
-import ItemPost from './Item';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { itemsFetchData } from "./../../actions";
 
-export default class PostsList extends Component {
+import ItemPost from "./Item";
+
+
+class PostsList extends Component {
+  componentDidMount() {
+    this.props.fetchData();
+  }
+  
   render() {
     return (
-      <div>
-        <ItemPost />
-      </div>
-    )
+      this.props.items.map(item => 
+        <ItemPost key={item.id} item={item} />
+      )
+    );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    items: state.items,
+    hasError: state.itemsHaveError,
+    isLoading: state.itemsAreLoading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: () => dispatch(itemsFetchData())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsList);

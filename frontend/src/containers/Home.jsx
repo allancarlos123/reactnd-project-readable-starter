@@ -5,9 +5,10 @@ import Header from "./../components/Header/Header";
 import PostsList from "./../components/Posts/List";
 import CategoriesList from "./../components/Categories/List";
 
-export default class HomeContainer extends Component {
+class HomeContainer extends Component {
   render() {
-    return <Grid columns={1} container>
+    return (
+      <Grid columns={1} container>
         <Grid.Column>
           <Header />
         </Grid.Column>
@@ -26,6 +27,9 @@ export default class HomeContainer extends Component {
         <Grid.Column>
           <PostsList />
         </Grid.Column>
-      </Grid>;
+      </Grid>
+    );
   }
 }
+
+export default HomeContainer;

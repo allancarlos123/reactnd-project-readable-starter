@@ -10,14 +10,14 @@ export default class ItemPost extends Component {
           <Item.Group divided>
             <Item>
               <Item.Content>
-                <Item.Header as="a">{faker.lorem.sentence()}</Item.Header>
+                <Item.Header as="a">{this.props.item.title}</Item.Header>
                 <Item.Meta>
-                  <span>
-                    submitted 12 hours ago by <strong>netWork</strong> in{" "}
-                    <strong>Investiments</strong>
-                  </span>
+                  <small>
+                    submitted 12 hours ago by <strong>{this.props.item.author}</strong> in{" "}
+                    <strong>{this.props.item.category}</strong>
+                  </small>
                 </Item.Meta>
-                <Item.Description>{faker.lorem.paragraph(1)}</Item.Description>
+                <Item.Description>{this.props.item.body}</Item.Description>
                 <Item.Extra>
                   <Button basic size="mini" icon labelPosition="left">
                     <Icon name="chevron up" />
@@ -28,7 +28,7 @@ export default class ItemPost extends Component {
                     <Icon name="chevron down" />
                   </Button>
                   <Icon name="comment outline" />
-                  224 comments
+                  {this.props.item.commentCount} comments
                 </Item.Extra>
               </Item.Content>
             </Item>
