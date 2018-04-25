@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import faker from "faker";
 import { Item, Label, Button, Icon, Segment } from "semantic-ui-react";
 
 export default class ItemPost extends Component {

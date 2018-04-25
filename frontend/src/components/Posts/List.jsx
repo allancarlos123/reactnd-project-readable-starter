@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { itemsFetchData } from "./../../actions";
+import { postsFetch } from "./../../actions";
 
 import ItemPost from "./Item";
 
-
 class PostsList extends Component {
   componentDidMount() {
-    this.props.fetchData();
+    this.props.fetchPosts();
   }
   
   render() {
     return (
-      this.props.items.map(item => 
-        <ItemPost key={item.id} item={item} />
+      this.props.posts.map(post => 
+        <ItemPost key={post.id} post={post} />
       )
     );
   }
@@ -21,15 +20,15 @@ class PostsList extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items,
-    hasError: state.itemsHaveError,
-    isLoading: state.itemsAreLoading
+    posts: state.posts,
+    hasError: state.postsHaveError,
+    isLoading: state.postsAreLoading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: () => dispatch(itemsFetchData())
+    fetchPosts: () => dispatch(postsFetch())
   };
 };
 

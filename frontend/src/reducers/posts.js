@@ -1,24 +1,24 @@
-export function itemsHaveError(state = false, action) {
+export function postsHaveError(state = false, action) {
   switch (action.type) {
-    case "ITEMS_HAVE_ERROR":
+    case "POSTS_HAVE_ERROR":
       return action.hasError;
     default:
       return state;
   }
 }
 
-export function itemsAreLoading(state = false, action) {
+export function postsAreLoading(state = false, action) {
   switch (action.type) {
-    case "ITEMS_ARE_LOADING":
+    case "POSTS_ARE_LOADING":
       return action.isLoading;
     default:
       return state;
   }
 }
 
-export function items(state = [], action) {
+export function posts(state = [], action) {
   switch (action.type) {
-    case "ITEMS_FETCH_DATA_SUCCESS":
+    case "POSTS_FETCH_DATA_SUCCESS":
       return action.items;
     default:
       return state;

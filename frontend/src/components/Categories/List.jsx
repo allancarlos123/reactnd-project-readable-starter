@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 import { Segment } from "semantic-ui-react";
-import slickSettings from "./../../Utils/slickConfig";
+import slickSettings from "./../../utils/slickConfig";
 
 export default class CategoriesList extends Component {
   render() {
