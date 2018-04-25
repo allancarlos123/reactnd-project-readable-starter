@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const api = "http://localhost:3001";
 
 let token = localStorage.token;
@@ -8,6 +10,7 @@ if (!token)
 
 const headers = {
   Accept: "application/json",
+  "Content-Type": "application/json",
   Authorization: token
 };
 
