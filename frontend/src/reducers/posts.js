@@ -2,7 +2,7 @@ import {
   POSTS_FETCH_ERROR,
   REQUEST_POSTS,
   RECEIVE_POSTS
-} from "../actions";
+} from "../actions/posts";
 
 export function posts(
   state = {

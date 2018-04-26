@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { postsFetch } from "./../../actions";
+import { postsFetch } from "./../../actions/posts";
 
 import ItemPost from "./Item";
 
