@@ -8,7 +8,7 @@ class PostsList extends Component {
   componentDidMount() {
     this.props.fetchPosts();
   }
-  
+
   render() {
     return (
       this.props.posts.map(post => 
@@ -20,9 +20,7 @@ class PostsList extends Component {
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts,
-    hasError: state.postsHaveError,
-    isLoading: state.postsAreLoading
+    posts: state.posts.posts
   };
 };
 

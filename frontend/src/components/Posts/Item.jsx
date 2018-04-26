@@ -9,15 +9,15 @@ export default class ItemPost extends Component {
           <Item.Group divided>
             <Item>
               <Item.Content>
-                <Item.Header as="a">{this.props.item.title}</Item.Header>
+                <Item.Header as="a">{this.props.post.title}</Item.Header>
                 <Item.Meta>
                   <small>
                     submitted 12 hours ago by{" "}
-                    <strong>{this.props.item.author}</strong> in{" "}
-                    <strong>{this.props.item.category}</strong>
+                    <strong>{this.props.post.author}</strong> in{" "}
+                    <strong>{this.props.post.category}</strong>
                   </small>
                 </Item.Meta>
-                <Item.Description>{this.props.item.body}</Item.Description>
+                <Item.Description>{this.props.post.body}</Item.Description>
                 <Item.Extra>
                   <Button basic size="mini" icon>
                     <Icon name="chevron up" />
@@ -26,12 +26,12 @@ export default class ItemPost extends Component {
                     <Icon name="chevron down" />
                   </Button>
 
-                  {this.props.item.voteScore > 0
-                  ? <Label circular color="green">{this.props.item.voteScore}</Label>
-                  : <Label circular color="red">{this.props.item.voteScore}</Label>
+                  {this.props.post.voteScore > 0
+                  ? <Label circular color="green">{this.props.post.voteScore}</Label>
+                  : <Label circular color="red">{this.props.post.voteScore}</Label>
                   }
                   <Icon name="comment outline" />
-                  {this.props.item.commentCount} comments
+                  {this.props.post.commentCount} comments
                 </Item.Extra>
               </Item.Content>
             </Item>

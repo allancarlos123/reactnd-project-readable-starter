@@ -1,31 +1,38 @@
 import * as ReadbleAPI from "./../utils/readbleAPI";
 
-export function postsHaveError(bool) {
+export const REQUEST_POSTS = "REQUEST_POSTS";
+
+// Action creators
+export const POSTS_FETCH_ERROR = "POSTS_FETCH_ERROR";
+export function postsFetchError(bool) {
   return {
-    type: "POSTS_HAVE_ERROR",
+    type: POSTS_FETCH_ERROR,
     hasError: bool
   };
 }
 
-export function postsAreLoading(bool) {
+export const POSTS_IS_FETCHING = "POSTS_IS_FETCHING";
+export function postsIsFetching(bool) {
   return {
-    type: "POSTS_ARE_LOADING",
-    isLoading: bool
+    type: POSTS_IS_FETCHING,
+    isFetching: bool
   };
 }
 
-export function postsFetchSuccess(posts) {
+export const RECEIVE_POSTS = "RECEIVE_POSTS";
+export function receivePosts(posts) {
   return {
-    type: "POSTS_FETCH_SUCCESS",
+    type: RECEIVE_POSTS,
     posts
   };
 }
 
 export function postsFetch() {
   return dispatch => {
+    dispatch(postsIsFetching(true))
     return ReadbleAPI.fetchPosts().then(
-      response => dispatch(postsFetchSuccess(response)),
-      err => dispatch(postsHaveError(err))
+      response => dispatch(receivePosts(response)),
+      err => dispatch(postsFetchError(true))
     );
   };
 }
