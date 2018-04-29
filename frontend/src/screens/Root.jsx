@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { Grid, Icon, Button } from "semantic-ui-react";
 
 import Header from "./../components/Header/Header";
-import PostsList from "./../components/Posts/List";
-import CategoriesList from "./../components/Categories/List";
+import PostsList from "./../components/Post/List";
+import CategoriesList from "./../components/Category/List";
 
-class HomeContainer extends Component {
-  render() {
+export default function ScreensRoot() {
     return (
       <Grid columns={1} container>
         <Grid.Column>
@@ -29,7 +28,4 @@ class HomeContainer extends Component {
         </Grid.Column>
       </Grid>
     );
-  }
 }
-
-export default HomeContainer;
