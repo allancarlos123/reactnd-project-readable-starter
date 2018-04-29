@@ -1,32 +1,32 @@
 import {
-  POSTS_FETCH_ERROR,
-  REQUEST_POSTS,
-  RECEIVE_POSTS
-} from "../actions/posts";
+  CATEGORIES_FETCH_ERROR,
+  REQUEST_CATEGORIES,
+  RECEIVE_CATEGORIES
+} from "../actions/categories";
 
-export function posts(
+export function categories(
   state = {
     isFetching: false,
     fetchError: false,
-    posts: []
+    categories: []
   },
   action
 ) {
   switch (action.type) {
-    case POSTS_FETCH_ERROR:
+    case CATEGORIES_FETCH_ERROR:
       return Object.assign({}, state, {
         fetchError: false
       });
-    case REQUEST_POSTS:
+    case REQUEST_CATEGORIES:
       return Object.assign({}, state, {
         isFetching: true,
         fetchError: false
       });
-    case RECEIVE_POSTS:
+    case RECEIVE_CATEGORIES:
       return Object.assign({}, state, {
         isFetching: false,
         fetchError: false,
-        posts: action.posts
+        categories: action.categories.categories
       });
     default:
       return state;

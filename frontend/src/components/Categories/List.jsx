@@ -1,52 +1,42 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 import { Segment } from "semantic-ui-react";
-import slickSettings from "./../../utils/slickConfig";
+import sliderSettings from "./../../utils/slickConfig";
+import { connect } from "react-redux";
+import { categoriesFetch } from "./../../actions/categories";
 
-export default class CategoriesList extends Component {
+class CategoriesList extends Component {
+  componentDidMount() {
+    this.props.fetchCategories();
+  }
+
   render() {
     return (
       <div>
         <Segment>
-          <Slider {...slickSettings}>
-            <div>
-              <strong>All topics</strong>
-            </div>
-
-            <div>
-              <strong>Games</strong>
-            </div>
-
-            <div>
-              <strong>Music</strong>
-            </div>
-
-            <div>
-              <strong>Science</strong>
-            </div>
-
-            <div>
-              <strong>Entertainment</strong>
-            </div>
-
-            <div>
-              <strong>Technology</strong>
-            </div>
-
-            <div>
-              <strong>Politics</strong>
-            </div>
-
-            <div>
-              <strong>Sports</strong>
-            </div>
-
-            <div>
-              <strong>Travel</strong>
-            </div>
+          <Slider {...sliderSettings}>
+            {this.props.categories.categories.map(category => (
+              <div key={category.path}>
+                <strong>{category.name}</strong>
+              </div>
+            ))}
           </Slider>
         </Segment>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    categories: state.categories
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCategories: () => dispatch(categoriesFetch())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesList);

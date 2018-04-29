@@ -18,3 +18,10 @@ export const fetchPosts = () =>
     .then(function(data) {
       return data;
     });
+
+export const fetchCategories = () =>
+  fetch(`${api}/categories`, { headers })
+    .then(res => res.json())
+    .then(function(data) {
+      return data;
+});
