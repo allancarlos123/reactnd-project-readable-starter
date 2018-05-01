@@ -5,7 +5,7 @@ import Header from "./../components/Header/Header";
 import PostsList from "./../components/Post/List";
 import CategoriesList from "./../components/Category/List";
 
-export default function ScreensRoot() {
+export default function RootScreen() {
     return (
       <Grid columns={1} container>
         <Grid.Column>
