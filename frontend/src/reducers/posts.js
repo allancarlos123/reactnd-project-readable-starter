@@ -1,14 +1,18 @@
 import {
   POSTS_FETCH_ERROR,
   REQUEST_POSTS,
-  RECEIVE_POSTS
+  RECEIVE_POSTS,
+  LIKE_POST,
+  UNLIKE_POST
 } from "../actions/posts";
 
 export function posts(
   state = {
     isFetching: false,
     fetchError: false,
-    posts: []
+    posts: [],
+    id: "",
+    option: ""
   },
   action
 ) {
@@ -27,6 +31,14 @@ export function posts(
         isFetching: false,
         fetchError: false,
         posts: action.posts
+      });
+    case LIKE_POST:
+      return Object.assign({}, state, {
+        id: action.id
+      });
+    case UNLIKE_POST:
+      return Object.assign({}, state, {
+        id: action.id
       });
     default:
       return state;

@@ -24,4 +24,15 @@ export const fetchCategories = () =>
     .then(res => res.json())
     .then(function(data) {
       return data;
-});
+    });
+
+export const votePost = (id, option) =>
+  fetch(`${api}/posts/${id}`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ option })
+  })
+    .then(res => res.json())
+    .then(function(data) {
+      return data;
+    });

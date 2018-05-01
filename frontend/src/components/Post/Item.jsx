@@ -5,7 +5,7 @@ export default class ItemPost extends Component {
   render() {
     return (
       <Segment.Group>
-        <Segment>
+        <Segment key={this.props.post.id}>
           <Item.Group divided>
             <Item>
               <Item.Content>
@@ -19,17 +19,35 @@ export default class ItemPost extends Component {
                 </Item.Meta>
                 <Item.Description>{this.props.post.body}</Item.Description>
                 <Item.Extra>
-                  <Button basic size="mini" icon>
+                  <Button
+                    basic
+                    size="mini"
+                    icon
+                    onClick={() =>
+                      this.props.votePost(this.props.post.id, "upVote")
+                    }
+                  >
                     <Icon name="chevron up" />
                   </Button>
-                  <Button basic size="mini" icon>
+                  <Button
+                    basic
+                    size="mini"
+                    icon
+                    onClick={() =>
+                      this.props.votePost(this.props.post.id, "downVote")
+                    }
+                  >
                     <Icon name="chevron down" />
                   </Button>
-
-                  {this.props.post.voteScore > 0
-                  ? <Label circular color="green">{this.props.post.voteScore}</Label>
-                  : <Label circular color="red">{this.props.post.voteScore}</Label>
-                  }
+                  {this.props.post.voteScore > 0 ? (
+                    <Label circular color="green">
+                      {this.props.post.voteScore}
+                    </Label>
+                  ) : (
+                    <Label circular color="red">
+                      {this.props.post.voteScore}
+                    </Label>
+                  )}
                   <Icon name="comment outline" />
                   {this.props.post.commentCount} comments
                 </Item.Extra>

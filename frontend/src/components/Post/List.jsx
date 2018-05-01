@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { postsFetch } from "./../../actions/posts";
+import { postsFetch, votePost } from "./../../actions/posts";
 
 import ItemPost from "./Item";
 
@@ -10,11 +10,13 @@ class PostsList extends Component {
   }
 
   render() {
-    return (
-      this.props.posts.map(post => 
-        <ItemPost key={post.id} post={post} />
-      )
-    );
+    return this.props.posts.map(post => (
+      <ItemPost
+      key={post.id}
+      post={post}
+      votePost={(id, option) => this.props.votePost(id, option)}
+      />
+    ));
   }
 }
 
@@ -26,7 +28,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPosts: () => dispatch(postsFetch())
+    fetchPosts: () => dispatch(postsFetch()),
+    votePost: (id, option) => dispatch(votePost(id, option))
   };
 };
 

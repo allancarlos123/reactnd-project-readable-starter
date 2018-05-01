@@ -2,7 +2,7 @@ import * as ReadbleAPI from "./../utils/readbleAPI";
 
 export const REQUEST_POSTS = "REQUEST_POSTS";
 
-// Action creators
+// Posts
 export const POSTS_FETCH_ERROR = "POSTS_FETCH_ERROR";
 export function postsFetchError(bool) {
   return {
@@ -29,10 +29,43 @@ export function receivePosts(posts) {
 
 export function postsFetch() {
   return dispatch => {
-    dispatch(postsIsFetching(true))
+    dispatch(postsIsFetching(true));
     return ReadbleAPI.fetchPosts().then(
       response => dispatch(receivePosts(response)),
       err => dispatch(postsFetchError(true))
+    );
+  };
+}
+
+// Vote in post
+export const LIKE_POST = "LIKE_POST";
+export function likePost(id) {
+  return {
+    type: LIKE_POST,
+    id
+  };
+}
+
+export const UNLIKE_POST = "UNLIKE_POST";
+export function unlikePost(id) {
+  return {
+    type: UNLIKE_POST,
+    id
+  };
+}
+
+export function votePost(id, option) {
+  return dispatch => {
+    return ReadbleAPI.votePost(id, option).then(
+      response => {
+        if (option === "upVote") {
+          dispatch(likePost(id));
+        } else {
+          dispatch(unlikePost(id));
+        }
+        dispatch(postsFetch())
+      },
+      err => console.log("deu erro!")
     );
   };
 }
