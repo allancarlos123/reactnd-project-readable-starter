@@ -18,9 +18,7 @@ export function posts(
 ) {
   switch (action.type) {
     case POSTS_FETCH_ERROR:
-      return Object.assign({}, state, {
-        fetchError: false
-      });
+      return Object.assign({}, state, { fetchError: false });
     case REQUEST_POSTS:
       return Object.assign({}, state, {
         isFetching: true,
@@ -33,13 +31,9 @@ export function posts(
         posts: action.posts
       });
     case LIKE_POST:
-      return Object.assign({}, state, {
-        id: action.id
-      });
+      return Object.assign({}, state, { id: action.id });
     case UNLIKE_POST:
-      return Object.assign({}, state, {
-        id: action.id
-      });
+      return Object.assign({}, state, { id: action.id });
     default:
       return state;
   }

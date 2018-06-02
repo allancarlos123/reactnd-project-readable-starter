@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Item, Label, Button, Icon, Segment } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 export default class ItemPost extends Component {
   render() {
@@ -9,7 +10,7 @@ export default class ItemPost extends Component {
           <Item.Group divided>
             <Item>
               <Item.Content>
-                <Item.Header as="a">{this.props.post.title}</Item.Header>
+                <Item.Header as={Link} to={`/${this.props.post.id}`}>{this.props.post.title}</Item.Header>
                 <Item.Meta>
                   <small>
                     submitted 12 hours ago by{" "}

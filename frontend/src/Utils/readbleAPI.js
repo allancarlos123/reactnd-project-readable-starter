@@ -19,6 +19,13 @@ export const fetchPosts = () =>
       return data;
     });
 
+export const fetchPost = id =>
+  fetch(`${api}/posts/${id}`, { headers })
+    .then(res => res.json())
+    .then(function(data) {
+      return data;
+    });
+
 export const fetchCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
