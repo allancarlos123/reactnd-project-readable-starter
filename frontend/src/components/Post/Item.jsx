@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 import { Item, Label, Button, Icon, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
@@ -12,8 +13,7 @@ export default class ItemPost extends Component {
               <Item.Content>
                 <Item.Header as={Link} to={`/${this.props.post.id}`}>{this.props.post.title}</Item.Header>
                 <Item.Meta>
-                  <small>
-                    submitted 12 hours ago by{" "}
+                  <small>submitted {moment(this.props.post.timestamp).toNow(true)} by {" "}
                     <strong>{this.props.post.author}</strong> in{" "}
                     <strong>{this.props.post.category}</strong>
                   </small>

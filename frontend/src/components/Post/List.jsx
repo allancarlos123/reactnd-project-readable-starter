@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { postsFetch, votePost } from "./../../actions/posts";
@@ -12,17 +13,19 @@ class PostsList extends Component {
   render() {
     return this.props.posts.map(post => (
       <ItemPost
-      key={post.id}
-      post={post}
-      votePost={(id, option) => this.props.votePost(id, option)}
+        key={post.id}
+        post={post}
+        votePost={(id, option) => this.props.votePost(id, option)}
       />
     ));
   }
 }
 
 const mapStateToProps = state => {
+  const posts = _.orderBy(state.posts.posts, ['voteScore', 'timestamp'], ['desc', 'desc'])
+
   return {
-    posts: state.posts.posts
+    posts: posts
   };
 };
 
