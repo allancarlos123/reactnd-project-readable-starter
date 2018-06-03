@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import faker from "faker";
 import { Container, Header } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { postFetch } from "./../../actions/posts";
