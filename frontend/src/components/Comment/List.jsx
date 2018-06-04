@@ -1,24 +1,25 @@
-import _ from "lodash";
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {commentsFetch, deleteCommentPost} from "./../../actions/comments";
+import {commentsFetch, deleteCommentPost, voteCommentPost} from "./../../actions/comments";
 import { Header } from "semantic-ui-react";
 
 import ItemComment from "./Item";
 
 class CommentsList extends Component {
   componentDidMount() {
-    this
-      .props
-      .fetchComments();
+    this.props.fetchComments();
   }
 
   deleteButtonPress(id) {
-    const {deleteCommentPost, commentsFetch} = this.props;
-    
     this.props.deleteCommentPost(id, () => {
       // commentsFetch(postId)
     })
+  }
+
+  voteButtonPress(id, option) {
+    this.props.voteCommentPost(id, option, () => {
+    })
+    this.props.fetchComments()
   }
 
   render() {
@@ -28,10 +29,14 @@ class CommentsList extends Component {
           Comments
         </Header>
 
-        {this
-          .props
-          .comments
-          .map(comment => (<ItemComment key={comment.id} deleteButton={(id) => this.deleteButtonPress(id)} comment={comment}/>))}
+        {this.props.comments.map(comment =>(
+          <ItemComment
+            key={comment.id}
+            voteButton={(id, option) => this.voteButtonPress(id, option)}
+            deleteButton={(id) => this.deleteButtonPress(id)}
+            comment={comment}
+          />
+        ))}
       </div>
     )
   }
@@ -45,7 +50,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchComments: id => dispatch(commentsFetch(ownProps.id)),
     // deleteCommentPost: id => dispatch(deleteCommentPost(ownProps.id))
-    deleteCommentPost: id => dispatch(deleteCommentPost(id))
+    deleteCommentPost: id => dispatch(deleteCommentPost(id)),
+    voteCommentPost: (id, option) => dispatch(voteCommentPost(id, option))
   };
 };
 

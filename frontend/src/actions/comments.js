@@ -59,3 +59,25 @@ export function deleteCommentPost(id, callback) {
     )
   }
 }
+
+export const COMMENT_VOTE_ERROR = "COMMENT_VOTE_ERROR";
+export function commentVoteError(bool) {
+  return {type: COMMENT_VOTE_ERROR, hasError: bool};
+}
+
+export const COMMENT_VOTE_SUCCESS = "COMMENT_VOTE_SUCCESS";
+export function commentVoteSuccess(bool) {
+  return {type: COMMENT_VOTE_SUCCESS, hasVoted: bool};
+}
+
+export const VOTE_COMMENT_POST = "VOTE_COMMENT_POST";
+export function voteCommentPost(id, option) {
+  return dispatch => {
+    return ReadbleAPI.voteCommentPost(id, option).then(
+      response => {
+        dispatch(commentVoteSuccess(true))
+      },
+      err => dispatch(commentVoteError(true))
+    )
+  }
+}

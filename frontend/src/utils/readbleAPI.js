@@ -1,7 +1,7 @@
 const api = "http://localhost:3001";
 
 let token = localStorage.token;
-if (!token) 
+if (!token)
   token = localStorage.token = Math.random().toString(36).substr(-8);
 
 const headers = {
@@ -33,7 +33,7 @@ export const fetchComments = id => fetch(`${api}/posts/${id}/comments`, {headers
   .then(function (data) {
     return data;
   })
-  
+
 export const votePost = (id, option) => fetch(`${api}/posts/${id}`, {
     method: "POST",
     headers,
@@ -58,6 +58,16 @@ fetch(`${api}/posts`, {
 export const deleteCommentPost = id => fetch(`${api}/comments/${id}`, {
   method: "DELETE",
   headers
+})
+.then(res => res.json())
+.then(function (data) {
+  return data;
+});
+
+export const voteCommentPost = (id, option) => fetch(`${api}/comments/${id}`, {
+  method: "POST",
+  headers,
+  body: JSON.stringify({option})
 })
 .then(res => res.json())
 .then(function (data) {

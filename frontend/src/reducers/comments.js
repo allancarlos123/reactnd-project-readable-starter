@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import {
+  VOTE_COMMENT_POST,
   DELETE_COMMENT_POST,
   COMMENTS_FETCH_ERROR,
   REQUEST_COMMENTS,
@@ -16,8 +17,12 @@ export function comments(
 ) {
   switch (action.type) {
     case DELETE_COMMENT_POST:
-      console.log('reduce teste')
-      _.omit(state, action.payload)
+      return _.omit(state, action.payload);
+    case VOTE_COMMENT_POST:
+      return {
+        ...state,
+        [action.payload.id]: action.payload
+      };
     case COMMENTS_FETCH_ERROR:
       return Object.assign({}, state, {
         fetch: false

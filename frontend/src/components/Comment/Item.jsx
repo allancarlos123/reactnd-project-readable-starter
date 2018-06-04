@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import moment from "moment";
 import {Comment, Icon} from "semantic-ui-react";
-import {Link} from "react-router-dom";
 
 class ItemComment extends Component {
   render() {
@@ -21,10 +20,10 @@ class ItemComment extends Component {
             <Comment.Actions>
               <a>Reply</a>
               <Comment.Action>
-                <Icon name='thumbs up' />
+                <Icon name='thumbs up' onClick={() => this.props.voteButton(this.props.comment.id, 'upVote')} />
               </Comment.Action>
               <Comment.Action>
-                <Icon name='thumbs down' />
+                <Icon name='thumbs down' onClick={() => this.props.voteButton(this.props.comment.id, 'downVote')} />
               </Comment.Action>
               <Comment.Action onClick={() => this.props.deleteButton(this.props.comment.id)}>
                 <Icon name = 'trash' />
