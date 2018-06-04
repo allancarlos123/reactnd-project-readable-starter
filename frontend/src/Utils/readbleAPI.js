@@ -28,6 +28,12 @@ export const fetchCategories = () => fetch(`${api}/categories`, {headers})
     return data;
   });
 
+export const fetchComments = id => fetch(`${api}/posts/${id}/comments`, {headers})
+  .then(res => res.json())
+  .then(function (data) {
+    return data;
+  })
+  
 export const votePost = (id, option) => fetch(`${api}/posts/${id}`, {
     method: "POST",
     headers,

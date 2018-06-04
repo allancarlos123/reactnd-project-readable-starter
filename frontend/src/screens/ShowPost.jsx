@@ -3,7 +3,7 @@ import { Grid } from "semantic-ui-react";
 
 import Header from "./../components/Header/Header";
 import PostShow from "./../components/Post/Show";
-// import CategoriesList from "./../components/Category/List";
+import CommentsList from "./../components/Comment/List";
 
 export default function ShowPostScreen({ id }) {
   return (
@@ -18,6 +18,8 @@ export default function ShowPostScreen({ id }) {
 
       <Grid.Column>
         <PostShow id={id} />
+
+        <CommentsList id={id} />
       </Grid.Column>
     </Grid>
   );
