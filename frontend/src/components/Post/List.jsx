@@ -25,7 +25,7 @@ const mapStateToProps = state => {
   const posts = _.orderBy(state.posts.posts, ['voteScore', 'timestamp'], ['desc', 'desc'])
 
   return {
-    posts: posts
+    posts
   };
 };
 
