@@ -35,3 +35,27 @@ export function commentsFetch(id) {
     )
   }
 }
+
+
+export const COMMENT_DELETE_ERROR = "COMMENT_DELETE_ERROR";
+export function commentDeleteError(bool) {
+  return {type: COMMENT_DELETE_ERROR, hasError: bool};
+}
+
+export const COMMENT_DELETE_SUCCESS = "COMMENT_DELETE_SUCCESS";
+export function commentDeleteSuccess(bool) {
+  return {type: COMMENT_DELETE_SUCCESS, hasDeleted: bool};
+}
+
+export const DELETE_COMMENT_POST = "DELETE_COMMENT_POST";
+export function deleteCommentPost(id, callback) {
+  return dispatch => {
+    return ReadbleAPI.deleteCommentPost(id).then(
+      response => {
+        // callback();
+        dispatch(commentDeleteSuccess(true))
+      },
+      err => dispatch(commentDeleteError(true))
+    )
+  }
+}

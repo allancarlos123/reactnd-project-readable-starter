@@ -54,3 +54,12 @@ fetch(`${api}/posts`, {
   .then(function (data) {
     return data;
   });
+
+export const deleteCommentPost = id => fetch(`${api}/comments/${id}`, {
+  method: "DELETE",
+  headers
+})
+.then(res => res.json())
+.then(function (data) {
+  return data;
+});

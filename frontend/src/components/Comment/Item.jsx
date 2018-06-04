@@ -26,6 +26,9 @@ class ItemComment extends Component {
               <Comment.Action>
                 <Icon name='thumbs down' />
               </Comment.Action>
+              <Comment.Action onClick={() => this.props.deleteButton(this.props.comment.id)}>
+                <Icon name = 'trash' />
+              </Comment.Action>
             </Comment.Actions>
           </Comment.Content>
         </Comment>
