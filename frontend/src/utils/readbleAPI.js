@@ -73,3 +73,16 @@ export const voteCommentPost = (id, option) => fetch(`${api}/comments/${id}`, {
 .then(function (data) {
   return data;
 });
+
+export const createComment = (id, values) =>
+  // values.values.parentId = id;
+
+  fetch(`${api}/comments`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(values)
+  })
+    .then(res => res.json())
+    .then(function (data) {
+      return data;
+    });

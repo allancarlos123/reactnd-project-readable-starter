@@ -4,6 +4,7 @@ import { Grid } from "semantic-ui-react";
 import Header from "./../components/Header/Header";
 import PostShow from "./../components/Post/Show";
 import CommentsList from "./../components/Comment/List";
+import CommentForm from "./../components/Comment/Form";
 
 export default function ShowPostScreen({ id }) {
   return (
@@ -20,6 +21,7 @@ export default function ShowPostScreen({ id }) {
         <PostShow id={id} />
 
         <CommentsList id={id} />
+        <CommentForm id={id} />
       </Grid.Column>
     </Grid>
   );

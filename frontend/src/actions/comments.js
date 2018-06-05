@@ -81,3 +81,25 @@ export function voteCommentPost(id, option) {
     )
   }
 }
+
+
+export const CREATE_COMMENT_ERROR = "CREATE_COMMENT_ERROR";
+export function createCommentError(bool) {
+  return {type: CREATE_COMMENT_ERROR, hasError: bool};
+}
+
+export const CREATE_COMMENT_SUCCESS = "CREATE_COMMENT_SUCCESS";
+export function createCommentSuccess(bool) {
+  return {type: CREATE_COMMENT_SUCCESS, hasCreated: bool};
+}
+
+export const CREATE_COMMENT = "CREATE_COMMENT";
+export function createComment(id, values) {
+  return dispatch => {
+    return ReadbleAPI
+      .createComment(id, values)
+      .then(response => {
+        dispatch(createCommentSuccess(true))
+      }, err => dispatch(createCommentError(true)))
+  }
+}
