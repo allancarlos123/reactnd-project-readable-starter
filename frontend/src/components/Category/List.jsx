@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { categoriesFetch } from "./../../actions/categories";
+import sliderSettings from "./../../utils/slickConfig";
+
 import Slider from "react-slick";
 import { Segment } from "semantic-ui-react";
-import sliderSettings from "./../../utils/slickConfig";
-import { connect } from "react-redux";
-import { categoriesFetch } from "./../../actions/categories";
 
 class CategoriesList extends Component {
   componentDidMount() {
@@ -17,7 +19,7 @@ class CategoriesList extends Component {
           <Slider {...sliderSettings}>
             {this.props.categories.categories.map(category => (
               <div key={category.path}>
-                <strong>{category.name}</strong>
+                <Link to={`/${category.name}`}>{category.name}</Link>
               </div>
             ))}
           </Slider>

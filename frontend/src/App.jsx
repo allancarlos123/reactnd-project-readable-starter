@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import RootScreen from "./screens/Root";
 import ShowPostScreen from "./screens/ShowPost";
 import FormPostScreen from "./screens/FormPost";
+import PostsListScreen from './screens/PostsListScreen';
 
 export default class App extends Component {
   render() {
@@ -12,7 +13,8 @@ export default class App extends Component {
       <Switch>
         <Route exact path="/" render={() => <RootScreen />} />
         <Route exact path="/new" render={() => <FormPostScreen />} />
-        <Route exact path="/:id" render={({ match }) => <ShowPostScreen id={match.params.id} />} />
+        <Route exact path="/:category" component={props => <PostsListScreen {...props} />} />
+        <Route exact path="/:category/:id" render={({ match }) => <ShowPostScreen id={match.params.id} />} />
       </Switch>
     );
   }

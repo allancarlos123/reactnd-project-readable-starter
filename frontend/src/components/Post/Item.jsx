@@ -11,7 +11,7 @@ export default class ItemPost extends Component {
           <Item.Group divided>
             <Item>
               <Item.Content>
-                <Item.Header as={Link} to={`/${this.props.post.id}`}>{this.props.post.title}</Item.Header>
+                <Item.Header as={Link} to={`${this.props.post.category}/${this.props.post.id}`}>{this.props.post.title}</Item.Header>
                 <Item.Meta>
                   <small>submitted {moment(this.props.post.timestamp).toNow(true)} by {" "}
                     <strong>{this.props.post.author}</strong> in{" "}

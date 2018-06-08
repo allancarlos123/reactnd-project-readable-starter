@@ -6,7 +6,7 @@ import Header from "./../components/Header/Header";
 import PostsList from "./../components/Post/List";
 import CategoriesList from "./../components/Category/List";
 
-export default function RootScreen(props) {
+export default function PostsListScreen(props) {
     return (
       <Grid columns={1} container>
         <Grid.Column>
@@ -17,15 +17,9 @@ export default function RootScreen(props) {
           <CategoriesList category={props.category} />
         </Grid.Column>
 
-        <Grid.Column mobile={16} computer={3}>
-          <Button as={Link} to="/new" fluid color="pink" floated="right" icon>
-            <Icon name="add" />
-            Create a post
-          </Button>
-        </Grid.Column>
-
         <Grid.Column>
-          <PostsList />
+          <h3>filtered category by: {props.match.params.category}</h3>
+          <PostsList {...props} />
         </Grid.Column>
       </Grid>
     );

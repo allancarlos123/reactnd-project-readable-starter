@@ -27,6 +27,15 @@ export function postsFetch() {
   };
 }
 
+export function postsFetchByCategory(category) {
+  return dispatch => {
+    dispatch(postsIsFetching(true));
+    return ReadbleAPI
+      .fetchPostsByCategory(category)
+      .then(response => dispatch(receivePosts(response)), err => dispatch(postsFetchError(true)));
+  };
+}
+
 // Vote in post
 export const LIKE_POST = "LIKE_POST";
 export function likePost(id) {

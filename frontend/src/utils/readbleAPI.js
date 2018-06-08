@@ -10,6 +10,12 @@ const headers = {
   Authorization: token
 };
 
+export const fetchPostsByCategory = category => fetch(`${api}/${category}/posts`, {headers})
+  .then(res => res.json())
+  .then(function (data) {
+    return data;
+  });
+
 export const fetchPosts = () => fetch(`${api}/posts`, {headers})
   .then(res => res.json())
   .then(function (data) {

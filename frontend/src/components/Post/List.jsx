@@ -1,13 +1,19 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { postsFetch, votePost } from "./../../actions/posts";
+import { postsFetch, votePost, postsFetchByCategory } from "./../../actions/posts";
 
 import ItemPost from "./Item";
 
 class PostsList extends Component {
   componentDidMount() {
-    this.props.fetchPosts();
+    const { fetchPosts, fetchPostsByCategory, match } = this.props
+
+    if (typeof match !== 'undefined') {
+      fetchPostsByCategory(match.params.category)
+    } else {
+      fetchPosts()
+    }
   }
 
   render() {
@@ -25,12 +31,13 @@ const mapStateToProps = state => {
   const posts = _.orderBy(state.posts.posts, ['voteScore', 'timestamp'], ['desc', 'desc'])
 
   return {
-    posts
+    posts: posts
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchPostsByCategory: category => dispatch(postsFetchByCategory(category)),
     fetchPosts: () => dispatch(postsFetch()),
     votePost: (id, option) => dispatch(votePost(id, option))
   };
