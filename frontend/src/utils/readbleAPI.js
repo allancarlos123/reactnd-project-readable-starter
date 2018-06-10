@@ -50,7 +50,7 @@ export const votePost = (id, option) => fetch(`${api}/posts/${id}`, {
     return data;
   });
 
-export const createPost = (values, callback) =>
+export const createPost = (values) =>
 fetch(`${api}/posts`, {
     method: "POST",
     headers,
@@ -81,8 +81,6 @@ export const voteCommentPost = (id, option) => fetch(`${api}/comments/${id}`, {
 });
 
 export const createComment = (id, values) =>
-  // values.values.parentId = id;
-
   fetch(`${api}/comments`, {
     method: "POST",
     headers,
@@ -92,3 +90,24 @@ export const createComment = (id, values) =>
     .then(function (data) {
       return data;
     });
+
+
+export const deletePost = id => fetch(`${api}/posts/${id}`, {
+  method: "DELETE",
+  headers
+})
+.then(res => res.json())
+.then(function (data) {
+  return data;
+});
+
+export const editPost = (id, values, callback) =>
+  fetch(`${api}/posts/${id}`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(values)
+  })
+  .then(res => res.json())
+  .then(function (data) {
+    return data;
+  });

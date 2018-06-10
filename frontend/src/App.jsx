@@ -15,6 +15,7 @@ export default class App extends Component {
         <Route exact path="/new" render={() => <FormPostScreen />} />
         <Route exact path="/:category" component={props => <PostsListScreen {...props} />} />
         <Route exact path="/:category/:id" render={({ match }) => <ShowPostScreen id={match.params.id} />} />
+        <Route exact path="/:category/:id/edit" component={props => <FormPostScreen {...props} />} />
       </Switch>
     );
   }

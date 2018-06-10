@@ -1,4 +1,10 @@
-import { POST_FETCH_ERROR, REQUEST_POST, RECEIVE_POST } from "../actions/posts";
+import _ from 'lodash';
+import {
+  DELETE_POST,
+  POST_FETCH_ERROR,
+  REQUEST_POST,
+  RECEIVE_POST
+} from "../actions/posts";
 
 export function post(
   state = {
@@ -9,6 +15,8 @@ export function post(
   action
 ) {
   switch (action.type) {
+    case DELETE_POST:
+      return _.omit(state, action.payload);
     case POST_FETCH_ERROR:
       return Object.assign({}, state, { fetchError: false });
     case REQUEST_POST:

@@ -95,7 +95,7 @@ export function createPostSuccess(data) {
 }
 
 export const CREATE_POST = "CREATE_POST";
-export function createPost(values, callback) {
+export function createPost(values) {
   const {title, body, author, category} = values;
   
   const data = {
@@ -109,8 +109,52 @@ export function createPost(values, callback) {
   
   return dispatch => {
     return ReadbleAPI.createPost(data).then(response => {
-      callback();
       dispatch(createPostSuccess(response.data))
+    });
+  }
+}
+
+export const POST_DELETE_ERROR = "POST_DELETE_ERROR";
+export function postDeleteError(bool) {
+  return { type: POST_DELETE_ERROR, hasError: bool };
+}
+
+export const POST_DELETE_SUCCESS = "POST_DELETE_SUCCESS";
+export function postDeleteSuccess(bool) {
+  return { type: POST_DELETE_SUCCESS, hasDeleted: bool };
+}
+
+export const DELETE_POST = "DELETE_POST";
+export function deletePost(id, callback) {
+  return dispatch => {
+    return ReadbleAPI.deletePost(id).then(
+      response => {
+        // callback();
+        dispatch(postDeleteSuccess(true))
+      },
+      err => dispatch(postDeleteError(true))
+    )
+  }
+}
+
+export const EDIT_POST_SUCCESS = "EDIT_POST_SUCCESS";
+export function editPostSuccess(data) {
+  return { type: EDIT_POST_SUCCESS, data };
+}
+
+export const EDIT_POST = "EDIT_POST";
+export function editPost(id, values, callback) {
+  const { title, body } = values;
+
+  const data = {
+    title,
+    body
+  }
+
+  return dispatch => {
+    return ReadbleAPI.editPost(id, data).then(response => {
+      callback();
+      dispatch(editPostSuccess(response.data))
     });
   }
 }
