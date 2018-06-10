@@ -28,7 +28,7 @@ class PostsList extends Component {
 }
 
 const mapStateToProps = state => {
-  const posts = _.orderBy(state.posts.posts, ['voteScore', 'timestamp'], ['desc', 'desc'])
+  const posts = _.orderBy(state.posts.posts, 'timestamp', 'desc')
 
   return {
     posts: posts
