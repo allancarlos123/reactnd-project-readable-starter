@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -14,17 +15,15 @@ class CategoriesList extends Component {
 
   render() {
     return (
-      <div>
-        <Segment>
+        <Segment loading={this.props.categories.isFetching}>
           <Slider {...sliderSettings}>
-            {this.props.categories.categories.map(category => (
+            {_.map(this.props.categories.categories, category => (
               <div key={category.path}>
                 <Link to={`/${category.name}`}>{category.name}</Link>
               </div>
             ))}
           </Slider>
         </Segment>
-      </div>
     );
   }
 }

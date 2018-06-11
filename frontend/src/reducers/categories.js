@@ -1,12 +1,13 @@
 import {
   CATEGORIES_FETCH_ERROR,
   REQUEST_CATEGORIES,
-  RECEIVE_CATEGORIES
+  RECEIVE_CATEGORIES,
+  CATEGORIES_IS_FETCHING
 } from "../actions/categories";
 
 export function categories(
   state = {
-    isFetching: false,
+    isFetching: true,
     fetchError: false,
     categories: []
   },
@@ -16,6 +17,10 @@ export function categories(
     case CATEGORIES_FETCH_ERROR:
       return Object.assign({}, state, {
         fetchError: false
+      });
+    case CATEGORIES_IS_FETCHING:
+      return Object.assign({}, state, {
+        isFetching: true
       });
     case REQUEST_CATEGORIES:
       return Object.assign({}, state, {
