@@ -1,4 +1,5 @@
 import * as ReadbleAPI from "./../utils/readbleAPI";
+import generateUUID from "../utils/generateUUID";
 
 // Posts
 export const REQUEST_POSTS = "REQUEST_POSTS";
@@ -97,9 +98,9 @@ export function createPostSuccess(data) {
 export const CREATE_POST = "CREATE_POST";
 export function createPost(values) {
   const {title, body, author, category} = values;
-  
+
   const data = {
-    id: Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
+    id: generateUUID(),
     title,
     body,
     author,

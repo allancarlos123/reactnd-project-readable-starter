@@ -1,22 +1,19 @@
-import _ from 'lodash';
 import React, {Component} from 'react'
 
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import {createComment} from './../../actions/comments';
-import {Button, Comment, Form} from 'semantic-ui-react'
-import {InputField, TextAreaField, SelectField} from 'react-semantic-redux-form';
+import {Button, Form} from 'semantic-ui-react'
+import {InputField, TextAreaField} from 'react-semantic-redux-form';
 
 class CommentForm extends Component {
   onSubmit(values) {
-    values.id = Math.floor((1 + Math.random()) * 0x10000),
-    values.timestamp = Date.now();
-    values.parentId = this.props.id;
-    this.props.createComment(this.props.id, values);
+    const postId = this.props.id;
+    this.props.createComment(postId, values);
   }
 
   render() {
-    const {handleSubmit, categories} = this.props;
+    const {handleSubmit} = this.props;
 
     return (
       <div>
@@ -60,6 +57,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default reduxForm({
-  form: 'CreateCommentForm'
+  form: 'CommentForm'
 })(
   connect(mapStateToProps, mapDispatchToProps)(CommentForm))

@@ -10,7 +10,7 @@ import {InputField, TextAreaField, SelectField} from 'react-semantic-redux-form'
 
 class PostForm extends Component {
   componentDidMount() {
-    const {categoriesFetch, match} = this.props;
+    const {categoriesFetch} = this.props;
     categoriesFetch();
   }
   
@@ -26,7 +26,6 @@ class PostForm extends Component {
   
   render() {
     const {handleSubmit, categories} = this.props;
-    console.log(this.props.categories)
     
     return (
       <div>
@@ -94,7 +93,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default reduxForm({
-  form: 'CreatePostForm',
-  form: 'EditPostForm',
+  form: 'PostForm'
 })(
   connect(mapStateToProps, mapDispatchToProps)(PostForm))

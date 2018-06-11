@@ -1,4 +1,5 @@
 import * as ReadbleAPI from "./../utils/readbleAPI";
+import generateUUID from './../utils/generateUUID';
 
 export const REQUEST_COMMENTS = "REQUEST_COMMENTS";
 
@@ -94,10 +95,20 @@ export function createCommentSuccess(bool) {
 }
 
 export const CREATE_COMMENT = "CREATE_COMMENT";
-export function createComment(id, values) {
+export function createComment(postId, values) {
+  const {author, body} = values;
+  
+  const data = {
+    id: generateUUID(),
+    timestamp: Date.now(),
+    parentId: postId,
+    author,
+    body
+  }
+  
   return dispatch => {
     return ReadbleAPI
-      .createComment(id, values)
+      .createComment(data)
       .then(response => {
         dispatch(createCommentSuccess(true))
       }, err => dispatch(createCommentError(true)))

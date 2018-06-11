@@ -80,7 +80,7 @@ export const voteCommentPost = (id, option) => fetch(`${api}/comments/${id}`, {
   return data;
 });
 
-export const createComment = (id, values) =>
+export const createComment = (values) =>
   fetch(`${api}/comments`, {
     method: "POST",
     headers,
