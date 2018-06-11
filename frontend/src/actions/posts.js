@@ -130,7 +130,7 @@ export function deletePost(id, callback) {
   return dispatch => {
     return ReadbleAPI.deletePost(id).then(
       response => {
-        // callback();
+        callback();
         dispatch(postDeleteSuccess(true))
       },
       err => dispatch(postDeleteError(true))

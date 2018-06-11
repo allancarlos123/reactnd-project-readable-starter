@@ -53,7 +53,7 @@ export function deleteCommentPost(id, callback) {
   return dispatch => {
     return ReadbleAPI.deleteCommentPost(id).then(
       response => {
-        // callback();
+        callback();
         dispatch(commentDeleteSuccess(true))
       },
       err => dispatch(commentDeleteError(true))
@@ -95,7 +95,7 @@ export function createCommentSuccess(bool) {
 }
 
 export const CREATE_COMMENT = "CREATE_COMMENT";
-export function createComment(postId, values) {
+export function createComment(postId, values, callback) {
   const {author, body} = values;
   
   const data = {
@@ -110,6 +110,7 @@ export function createComment(postId, values) {
     return ReadbleAPI
       .createComment(data)
       .then(response => {
+        callback()
         dispatch(createCommentSuccess(true))
       }, err => dispatch(createCommentError(true)))
   }

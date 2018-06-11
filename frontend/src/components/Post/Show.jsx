@@ -9,6 +9,12 @@ class PostShow extends Component {
     this.props.fetchPost(this.props.id);
   }
 
+  deletePost() {
+    this.props.deletePost(() => {
+      console.log('deletou')
+    })
+  }
+
   render() {
     return (
       <div>
@@ -20,7 +26,7 @@ class PostShow extends Component {
           <Link to={`/${this.props.post.category}/${this.props.id}/edit`}>Edit Post</Link>
 
           &nbsp;&nbsp;
-          <button onClick={() => this.props.deletePost(this.props.id)}>Delete post</button>
+          <button onClick={() => this.deletePost()}>Delete post</button>
           <p>{this.props.post.body}</p>
         </Container>
       </div>
@@ -34,10 +40,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchPost: id => dispatch(postFetch(id)),
-    deletePost: id => dispatch(deletePost(id))
+    deletePost: callback => dispatch(deletePost(ownProps.id, callback))
   };
 };
 

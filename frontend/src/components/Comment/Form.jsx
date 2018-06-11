@@ -2,14 +2,16 @@ import React, {Component} from 'react'
 
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
-import {createComment} from './../../actions/comments';
+import {createComment, commentsFetch} from './../../actions/comments';
 import {Button, Form} from 'semantic-ui-react'
 import {InputField, TextAreaField} from 'react-semantic-redux-form';
 
 class CommentForm extends Component {
   onSubmit(values) {
     const postId = this.props.id;
-    this.props.createComment(postId, values);
+    this.props.createComment(postId, values, () => {
+      this.props.fetchComments()
+    });
   }
 
   render() {
@@ -46,13 +48,14 @@ class CommentForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    // categories: state.categories
+    comments: state.comments.comments
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    createComment: (id, values) => dispatch(createComment(id, values))
+    fetchComments: () => dispatch(commentsFetch(ownProps.id)),
+    createComment: (id, values, callback) => dispatch(createComment(id, values, callback))
   }
 }
 

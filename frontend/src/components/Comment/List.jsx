@@ -10,9 +10,9 @@ class CommentsList extends Component {
     this.props.fetchComments();
   }
 
-  deleteButtonPress(id) {
+  deleteButtonPress(id, callback) {
     this.props.deleteCommentPost(id, () => {
-      // commentsFetch(postId)
+      this.props.fetchComments()
     })
   }
 
@@ -48,9 +48,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchComments: id => dispatch(commentsFetch(ownProps.id)),
+    fetchComments: () => dispatch(commentsFetch(ownProps.id)),
     // deleteCommentPost: id => dispatch(deleteCommentPost(ownProps.id))
-    deleteCommentPost: id => dispatch(deleteCommentPost(id)),
+    deleteCommentPost: (id, callback) => dispatch(deleteCommentPost(id, callback)),
     voteCommentPost: (id, option) => dispatch(voteCommentPost(id, option))
   };
 };

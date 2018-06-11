@@ -6,7 +6,7 @@ import PostShow from "./../components/Post/Show";
 import CommentsList from "./../components/Comment/List";
 import CommentForm from "./../components/Comment/Form";
 
-export default function ShowPostScreen({ id }) {
+export default function ShowPostScreen(props) {
   return (
     <Grid columns={1} container>
       <Grid.Column>
@@ -18,10 +18,10 @@ export default function ShowPostScreen({ id }) {
       </Grid.Column> */}
 
       <Grid.Column>
-        <PostShow id={id} />
+        <PostShow {...props} />
 
-        <CommentsList id={id} />
-        <CommentForm id={id} />
+        <CommentsList {...props} />
+        <CommentForm {...props} />
       </Grid.Column>
     </Grid>
   );
