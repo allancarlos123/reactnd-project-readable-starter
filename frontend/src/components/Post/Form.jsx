@@ -11,22 +11,22 @@ import { InputField, TextAreaField, SelectField } from 'react-semantic-redux-for
 
 class PostForm extends Component {
   componentDidMount() {
-    const { categoriesFetch } = this.props;
-    categoriesFetch();
+    const { categoriesFetch } = this.props
+    categoriesFetch()
   }
 
   onSubmit(values) {
-    const { match, history } = this.props;
+    const { match, history } = this.props
 
     if (typeof match.params.id !== 'undefined') {
-      this.props.editPost(match.params.id, values, () => history.push('/'));
+      this.props.editPost(match.params.id, values, () => history.push('/'))
     } else {
-      this.props.createPost(values, () => history.push('/'));
+      this.props.createPost(values, () => history.push('/'))
     }
   }
 
   render() {
-    const { handleSubmit, categories, match } = this.props;
+    const { handleSubmit, categories, match } = this.props
 
     return (
       <div>

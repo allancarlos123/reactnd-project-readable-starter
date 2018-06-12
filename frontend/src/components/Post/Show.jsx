@@ -1,18 +1,19 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Container, Header } from "semantic-ui-react";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { postFetch, deletePost } from "./../../actions/posts";
 
+import { Container, Header } from "semantic-ui-react";
+
 class PostShow extends Component {
   componentDidMount() {
-    this.props.fetchPost(this.props.id);
+    this.props.fetchPost(this.props.id)
   }
 
   deletePost() {
-    this.props.deletePost(() => {
-      console.log('deletou')
-    })
+    const { deletePost, history } = this.props
+    
+    deletePost(() => history.push('/'))
   }
 
   render() {
@@ -47,4 +48,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostShow);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostShow))
