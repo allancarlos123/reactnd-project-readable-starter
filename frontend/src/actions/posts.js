@@ -96,7 +96,7 @@ export function createPostSuccess(data) {
 }
 
 export const CREATE_POST = "CREATE_POST";
-export function createPost(values) {
+export function createPost(values, callback) {
   const {title, body, author, category} = values;
 
   const data = {
@@ -110,6 +110,7 @@ export function createPost(values) {
   
   return dispatch => {
     return ReadbleAPI.createPost(data).then(response => {
+      callback()
       dispatch(createPostSuccess(response.data))
     });
   }
