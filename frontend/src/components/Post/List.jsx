@@ -2,7 +2,6 @@ import _ from "lodash";
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {postsFetch, votePost, postsFetchByCategory} from "./../../actions/posts";
-import {Item, Segment} from "semantic-ui-react";
 
 import ItemPost from "./Item";
 
