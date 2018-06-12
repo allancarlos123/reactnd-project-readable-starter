@@ -1,13 +1,14 @@
 import _ from "lodash";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { postsFetch, votePost, postsFetchByCategory } from "./../../actions/posts";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {postsFetch, votePost, postsFetchByCategory} from "./../../actions/posts";
+import {Item, Segment} from "semantic-ui-react";
 
 import ItemPost from "./Item";
 
 class PostsList extends Component {
   componentDidMount() {
-    const { fetchPosts, fetchPostsByCategory, match } = this.props
+    const {fetchPosts, fetchPostsByCategory, match} = this.props
 
     if (typeof match !== 'undefined') {
       fetchPostsByCategory(match.params.category)
@@ -17,22 +18,22 @@ class PostsList extends Component {
   }
 
   render() {
-    return this.props.posts.map(post => (
-      <ItemPost
-        key={post.id}
-        post={post}
-        votePost={(id, option) => this.props.votePost(id, option)}
-      />
-    ));
+    return (
+      this.props.posts.map(post => (
+        <ItemPost
+          key={post.id}
+          post={post}
+          votePost={(id, option) => this.props.votePost(id, option)}
+        />
+      ))
+    )
   }
 }
 
 const mapStateToProps = state => {
   const posts = _.orderBy(state.posts.posts, 'timestamp', 'desc')
 
-  return {
-    posts: posts
-  };
+  return {posts: posts};
 };
 
 const mapDispatchToProps = dispatch => {
