@@ -98,4 +98,11 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(reduxForm({form: 'PostForm', enableReinitialize: true})(connect(mapStateToProps, mapDispatchToProps)(PostForm)))
+export default withRouter(
+  reduxForm({
+    form: 'PostForm',
+    enableReinitialize: true
+  })(
+    connect(mapStateToProps, mapDispatchToProps)(PostForm)
+  )
+)
