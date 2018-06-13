@@ -8,7 +8,7 @@ import {
 
 export function post(
   state = {
-    isFetching: false,
+    isFetching: true,
     fetchError: false,
     post: []
   },
