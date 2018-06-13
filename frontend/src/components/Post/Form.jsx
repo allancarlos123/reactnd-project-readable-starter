@@ -14,15 +14,12 @@ class PostForm extends Component {
     const {categoriesFetch, postFetch, match} = this.props
 
     if (typeof match.params.id !== 'undefined') {
+      // this.props.initializeForm('PostForm', this.props.post.post)
       postFetch(match.params.id)
     } else {
       categoriesFetch()
     }
   }
-
-  // componentDidMount() {
-  //   this.props.initializeForm('PostForm', this.props.post.post)
-  // }
 
   onSubmit(values) {
     const {match, history} = this.props
