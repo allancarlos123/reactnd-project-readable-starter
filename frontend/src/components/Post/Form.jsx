@@ -1,20 +1,19 @@
 import _ from 'lodash';
-import React, {Component} from 'react'
-import {Field, reduxForm, initialize} from 'redux-form';
-import {connect} from 'react-redux';
-import {withRouter} from "react-router-dom";
-import {createPost, postFetch, editPost} from './../../actions/posts';
-import {categoriesFetch} from './../../actions/categories';
+import React, { Component } from 'react'
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
+import { createPost, postFetch, editPost } from './../../actions/posts';
+import { categoriesFetch } from './../../actions/categories';
 
-import {Button, Form, Header} from 'semantic-ui-react'
-import {InputField, TextAreaField, SelectField} from 'react-semantic-redux-form';
+import { Button, Form, Header } from 'semantic-ui-react'
+import { InputField, TextAreaField, SelectField } from 'react-semantic-redux-form';
 
 class PostForm extends Component {
   componentDidMount() {
-    const {categoriesFetch, postFetch, match} = this.props
+    const { categoriesFetch, postFetch, match } = this.props
 
     if (typeof match.params.id !== 'undefined') {
-      // this.props.initializeForm('PostForm', this.props.post.post)
       postFetch(match.params.id)
     } else {
       categoriesFetch()
@@ -22,7 +21,7 @@ class PostForm extends Component {
   }
 
   onSubmit(values) {
-    const {match, history} = this.props
+    const { match, history } = this.props
 
     if (typeof match.params.id !== 'undefined') {
       this.props.editPost(match.params.id, values, () => history.push('/'))
@@ -32,7 +31,7 @@ class PostForm extends Component {
   }
 
   render() {
-    const {handleSubmit, pristine, submitting, categories, match} = this.props
+    const { handleSubmit, pristine, submitting, categories, match } = this.props
 
     return (
       <div>
@@ -44,27 +43,27 @@ class PostForm extends Component {
         </Header>
 
         <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field name='title' component={InputField} label='Title' placeholder='Title'/>
+          <Field name='title' component={InputField} label='Title' placeholder='Title' />
 
           <Field
             name='body'
             component={TextAreaField}
             label='Content'
-            placeholder='Content'/> {typeof match.params.id === 'undefined' && <div>
-            <Field
-              name='author'
-              component={InputField}
-              label='Author'
-              placeholder='Author'/>
+            placeholder='Content' /> {typeof match.params.id === 'undefined' && <div>
+              <Field
+                name='author'
+                component={InputField}
+                label='Author'
+                placeholder='Author' />
 
-            <Field
-              component={SelectField}
-              name='category'
-              label="Choose a category"
-              placeholder="Choose a category"
-              options={_.map(categories.categories, category => ({key: category.name, value: category.name, text: category.name}))}/>
-          </div>
-}
+              <Field
+                component={SelectField}
+                name='category'
+                label="Choose a category"
+                placeholder="Choose a category"
+                options={_.map(categories.categories, category => ({ key: category.name, value: category.name, text: category.name }))} />
+            </div>
+          }
 
           <Form.Field control={Button} type='submit' disabled={pristine || submitting}>
             {typeof this.props.match.params.id !== 'undefined'
@@ -77,12 +76,21 @@ class PostForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    categories: state.categories,
-    post: state.post,
-    initialValues: state.post.post
+const mapStateToProps = (state, ownProps) => {
+  const isEditPost = typeof ownProps.match.params.id !== 'undefined'
+
+  if (isEditPost) {
+    return {
+      categories: state.categories,
+      post: state.post,
+      initialValues: state.post.post
+    }
+  } else {
+      return {
+        categories: state.categories
+      }
   }
+
 }
 
 const mapDispatchToProps = dispatch => {
@@ -90,8 +98,7 @@ const mapDispatchToProps = dispatch => {
     createPost: (values, callback) => dispatch(createPost(values, callback)),
     editPost: (id, values, callback) => dispatch(editPost(id, values, callback)),
     categoriesFetch: () => dispatch(categoriesFetch()),
-    postFetch: id => dispatch(postFetch(id)),
-    initializeForm: (form, data) => dispatch(initialize(form, data))
+    postFetch: id => dispatch(postFetch(id))
   }
 }
 
