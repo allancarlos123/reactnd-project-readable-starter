@@ -157,6 +157,7 @@ export function editComment(id, values, callback) {
   const { body } = values;
 
   const data = {
+    timestamp : Date.now(),
     body
   }
 
