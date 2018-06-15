@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {commentsFetch, deleteCommentPost, voteCommentPost} from "./../../actions/comments";
+import {commentsFetch, deleteCommentPost, voteCommentPost, isEditingComment} from "./../../actions/comments";
 import { Header } from "semantic-ui-react";
 
 import ItemComment from "./Item";
@@ -35,6 +35,8 @@ class CommentsList extends Component {
             voteButton={(id, option) => this.voteButtonPress(id, option)}
             deleteButton={(id) => this.deleteButtonPress(id)}
             comment={comment}
+            fetchComment={id => this.props.fetchComment(id)}
+            isEditingComment={status => this.props.isEditingComment(status)}
           />
         ))}
       </div>
@@ -48,6 +50,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    isEditingComment: status => dispatch(isEditingComment(status)),
     fetchComments: () => dispatch(commentsFetch(ownProps.id)),
     // deleteCommentPost: id => dispatch(deleteCommentPost(ownProps.id))
     deleteCommentPost: (id, callback) => dispatch(deleteCommentPost(id, callback)),

@@ -84,6 +84,11 @@ export function voteCommentPost(id, option) {
 }
 
 
+export const IS_EDITING_COMMENT = "IS_EDITING_COMMENT";
+export function isEditingComment(bool) {
+  return {type: IS_EDITING_COMMENT, isEditing: bool};
+}
+
 export const CREATE_COMMENT_ERROR = "CREATE_COMMENT_ERROR";
 export function createCommentError(bool) {
   return {type: CREATE_COMMENT_ERROR, hasError: bool};
@@ -113,5 +118,52 @@ export function createComment(postId, values, callback) {
         callback()
         dispatch(createCommentSuccess(true))
       }, err => dispatch(createCommentError(true)))
+  }
+}
+
+export const REQUEST_COMMENT = "REQUEST_COMMENT";
+
+export const COMMENT_FETCH_ERROR = "COMMENT_FETCH_ERROR";
+export function commentFetchError(bool) {
+  return { type: COMMENT_FETCH_ERROR, hasError: bool };
+}
+
+export const COMMENT_IS_FETCHING = "COMMENT_IS_FETCHING";
+export function commentIsFetching(bool) {
+  return { type: COMMENT_IS_FETCHING, isFetching: bool };
+}
+
+export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
+export function receiveComment(comment) {
+  return { type: RECEIVE_COMMENT, comment };
+}
+
+export function commentFetch(id) {
+  return dispatch => {
+    dispatch(commentIsFetching(true));
+    return ReadbleAPI
+      .fetchComment(id)
+      .then(response => dispatch(receiveComment(response)), err => dispatch(commentFetchError(true)));
+  };
+}
+
+export const EDIT_COMMENT_SUCCESS = "EDIT_COMMENT_SUCCESS";
+export function editCommentSuccess(data) {
+  return { type: EDIT_COMMENT_SUCCESS, data };
+}
+
+export const EDIT_COMMENT = "EDIT_COMMENT";
+export function editComment(id, values, callback) {
+  const { body } = values;
+
+  const data = {
+    body
+  }
+
+  return dispatch => {
+    return ReadbleAPI.editComment(id, data).then(response => {
+      callback();
+      dispatch(editCommentSuccess(response.data))
+    });
   }
 }

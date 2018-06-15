@@ -40,6 +40,12 @@ export const fetchComments = id => fetch(`${api}/posts/${id}/comments`, {headers
     return data;
   })
 
+export const fetchComment = id => fetch(`${api}/comments/${id}`, {headers})
+  .then(res => res.json())
+  .then(function (data) {
+    return data;
+  })
+
 export const votePost = (id, option) => fetch(`${api}/posts/${id}`, {
     method: "POST",
     headers,
@@ -103,6 +109,17 @@ export const deletePost = id => fetch(`${api}/posts/${id}`, {
 
 export const editPost = (id, values, callback) =>
   fetch(`${api}/posts/${id}`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(values)
+  })
+  .then(res => res.json())
+  .then(function (data) {
+    return data;
+  });
+
+export const editComment = (id, values, callback) =>
+  fetch(`${api}/comments/${id}`, {
     method: "PUT",
     headers,
     body: JSON.stringify(values)

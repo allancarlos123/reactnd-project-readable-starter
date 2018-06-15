@@ -9,7 +9,7 @@ import {
 
 export function comments(
   state = {
-    isFetching: false,
+    isFetching: true,
     fetchError: false,
     comments: []
   },

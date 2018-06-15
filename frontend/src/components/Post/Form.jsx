@@ -32,7 +32,7 @@ class PostForm extends Component {
 
   render() {
     const { handleSubmit, pristine, submitting, categories, match } = this.props
-
+    
     return (
       <div>
         <Header as='h3' dividing>

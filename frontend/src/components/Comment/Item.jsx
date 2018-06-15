@@ -3,6 +3,11 @@ import moment from "moment";
 import {Comment, Icon} from "semantic-ui-react";
 
 class ItemComment extends Component {
+  editComment = () => {
+    this.props.fetchComment(this.props.comment.id)
+    this.props.isEditingComment(true)
+  }
+
   render() {
     return (
       <Comment.Group>
@@ -18,7 +23,7 @@ class ItemComment extends Component {
             </Comment.Metadata>
             <Comment.Text>{this.props.comment.body}</Comment.Text>
             <Comment.Actions>
-              <a>Reply</a>
+              <a onClick={() => this.editComment()}>Edit</a>
               <Comment.Action>
                 <Icon name='thumbs up' onClick={() => this.props.voteButton(this.props.comment.id, 'upVote')} />
               </Comment.Action>

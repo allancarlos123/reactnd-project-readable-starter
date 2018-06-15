@@ -2,16 +2,30 @@ import React, {Component} from 'react'
 
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
-import {createComment, commentsFetch} from './../../actions/comments';
+import {editComment, createComment, commentsFetch, commentFetch, isEditingComment} from './../../actions/comments';
 import {Button, Form} from 'semantic-ui-react'
 import {InputField, TextAreaField} from 'react-semantic-redux-form';
 
-class CommentForm extends Component {
+class CommentForm extends Component { 
   onSubmit(values) {
-    const postId = this.props.id;
-    this.props.createComment(postId, values, () => {
-      this.props.fetchComments()
-    });
+    const isEditingComment = this.props.comment.isEditing;
+
+    if (isEditingComment) {
+      const commentId = this.props.comment.comment.id
+      this.props.editComment(commentId, values, () => {
+        this.props.fetchComments()
+      })
+    } else {
+      const postId = this.props.id;
+      this.props.createComment(postId, values, () => {
+        this.props.fetchComments()
+      });
+    }
+    
+  }
+
+  cancelEdit(e) {
+    this.props.isEditingComment(false)
   }
 
   render() {
@@ -40,6 +54,13 @@ class CommentForm extends Component {
             icon='edit'
             primary>
           </Form.Field>
+
+          {this.props.comment.isEditing &&
+            <Button
+              onClick={(e) => this.cancelEdit(e)}
+              content="Cancel"
+            />
+          }
         </Form>
       </div>
     )
@@ -48,18 +69,23 @@ class CommentForm extends Component {
 
 const mapStateToProps = state => {
   return {
+    comment: state.comment,
     comments: state.comments.comments
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    isEditingComment: status => dispatch(isEditingComment(status)),
+    editComment: (id, values, callback) => dispatch(editComment(id, values, callback)),
     fetchComments: () => dispatch(commentsFetch(ownProps.id)),
     createComment: (id, values, callback) => dispatch(createComment(id, values, callback))
   }
 }
 
-export default reduxForm({
-  form: 'CommentForm'
-})(
-  connect(mapStateToProps, mapDispatchToProps)(CommentForm))
+CommentForm = reduxForm({
+  form: 'CommentForm',
+  enableReinitialize: true
+})(CommentForm);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);
