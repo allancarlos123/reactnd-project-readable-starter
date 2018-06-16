@@ -1,44 +1,42 @@
-import React, {Component} from "react";
+import React from "react";
 import moment from "moment";
 import {Comment, Icon} from "semantic-ui-react";
 
-class ItemComment extends Component {
-  editComment = () => {
-    this.props.fetchComment(this.props.comment.id)
-    this.props.isEditingComment(true)
-  }
-
-  render() {
-    return (
-      <Comment.Group>
-        <Comment>
-          <Comment.Content>
-            <Comment.Author as='a'>{this.props.comment.author}</Comment.Author>
-            <Comment.Metadata>
-              <span>{moment(this.props.comment.timestamp).toNow(true)}</span>
-              <div>
-                <Icon name='star' />
-                {this.props.comment.voteScore}
-              </div>
-            </Comment.Metadata>
-            <Comment.Text>{this.props.comment.body}</Comment.Text>
-            <Comment.Actions>
-              <a onClick={() => this.editComment()}>Edit</a>
-              <Comment.Action>
-                <Icon name='thumbs up' onClick={() => this.props.voteButton(this.props.comment.id, 'upVote')} />
-              </Comment.Action>
-              <Comment.Action>
-                <Icon name='thumbs down' onClick={() => this.props.voteButton(this.props.comment.id, 'downVote')} />
-              </Comment.Action>
-              <Comment.Action onClick={() => this.props.deleteButton(this.props.comment.id)}>
-                <Icon name = 'trash' />
-              </Comment.Action>
-            </Comment.Actions>
-          </Comment.Content>
-        </Comment>
-      </Comment.Group>
-    );
-  }
+export default function ItemComment(props) {
+  const {comment, deleteAction, recommendAction, editComment} = props
+  return (
+    <Comment.Group>
+      <Comment>
+        <Comment.Content>
+          <Comment.Author as='a'>{comment.author}
+          </Comment.Author>
+          <Comment.Metadata>
+            <span>{moment(comment.timestamp).toNow(true)}</span >
+            <div>
+              <Icon name='star'/> {comment.voteScore}
+            </div>
+          </Comment.Metadata>
+          <Comment.Text>{comment.body}</Comment.Text >
+          <Comment.Actions>
+            <a onClick={() => editComment(comment.id)}>Edit</a>
+            <Comment.Action>
+              <Icon
+                name='thumbs up'
+                onClick={() => recommendAction(comment.id, 'upVote')}
+              />
+            </Comment.Action>
+            <Comment.Action>
+              <Icon
+                name='thumbs down'
+                onClick={() => recommendAction(comment.id, 'downVote')}
+              />
+            </Comment.Action>
+            <Comment.Action onClick={() => deleteAction(comment.id)}>
+              <Icon name='trash'/>
+            </Comment.Action>
+          </Comment.Actions>
+        </Comment.Content>
+      </Comment>
+    </Comment.Group>
+  )
 }
-
-export default ItemComment;

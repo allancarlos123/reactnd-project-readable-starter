@@ -72,10 +72,11 @@ export function commentVoteSuccess(bool) {
 }
 
 export const VOTE_COMMENT_POST = "VOTE_COMMENT_POST";
-export function voteCommentPost(id, option) {
+export function voteCommentPost(id, option, callback) {
   return dispatch => {
     return ReadbleAPI.voteCommentPost(id, option).then(
       response => {
+        callback()
         dispatch(commentVoteSuccess(true))
       },
       err => dispatch(commentVoteError(true))

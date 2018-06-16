@@ -2,23 +2,23 @@ import React, {Component} from 'react'
 
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
-import {editComment, createComment, commentsFetch, commentFetch, isEditingComment} from './../../actions/comments';
+import {editComment, createComment, commentsFetch, isEditingComment} from './../../actions/comments';
 import {Button, Form} from 'semantic-ui-react'
 import {InputField, TextAreaField} from 'react-semantic-redux-form';
 
 class CommentForm extends Component { 
   onSubmit(values) {
     const isEditingComment = this.props.comment.isEditing;
+    const postId = this.props.match.params.id
 
     if (isEditingComment) {
       const commentId = this.props.comment.comment.id
       this.props.editComment(commentId, values, () => {
-        this.props.fetchComments()
+        this.props.fetchComments(postId)
       })
     } else {
-      const postId = this.props.id;
       this.props.createComment(postId, values, () => {
-        this.props.fetchComments()
+        this.props.fetchComments(postId)
       });
     }
     
@@ -68,17 +68,21 @@ class CommentForm extends Component {
 }
 
 const mapStateToProps = state => {
+console.log(state.comment.comment)
   return {
     comment: state.comment,
-    comments: state.comments.comments
+    comments: state.comments.comments,
+    initialValues: state.comment.comment
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+  const postId = ownProps.match.params.id
+  
   return {
     isEditingComment: status => dispatch(isEditingComment(status)),
-    editComment: (id, values, callback) => dispatch(editComment(id, values, callback)),
-    fetchComments: () => dispatch(commentsFetch(ownProps.id)),
+    editComment: (id, values, callback) => dispatch(editComment(postId, values, callback)),
+    fetchComments: () => dispatch(commentsFetch(postId)),
     createComment: (id, values, callback) => dispatch(createComment(id, values, callback))
   }
 }

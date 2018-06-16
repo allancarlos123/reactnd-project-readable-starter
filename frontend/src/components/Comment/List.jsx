@@ -1,25 +1,28 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {commentsFetch, deleteCommentPost, voteCommentPost, isEditingComment} from "./../../actions/comments";
+import {commentsFetch, deleteCommentPost, voteCommentPost} from "./../../actions/comments";
 import { Header } from "semantic-ui-react";
 
 import ItemComment from "./Item";
 
 class CommentsList extends Component {
   componentDidMount() {
-    this.props.fetchComments();
+    const id = this.props.match.params.id
+    this.props.fetchComments(id)
   }
+  
+  deleteAction(commentId, callback) {
+    const postId = this.props.match.params.id
 
-  deleteButtonPress(id, callback) {
-    this.props.deleteCommentPost(id, () => {
-      this.props.fetchComments()
+    this.props.deleteCommentPost(commentId, () => {
+      this.props.fetchComments(postId)
     })
   }
-
-  voteButtonPress(id, option) {
-    this.props.voteCommentPost(id, option, () => {
-    })
-    this.props.fetchComments()
+  
+  recommendAction(id, option) {
+    const postId = this.props.match.params.id
+    const {voteCommentPost, fetchComments} = this.props
+    voteCommentPost(id, option, () => fetchComments(postId))
   }
 
   render() {
@@ -32,11 +35,11 @@ class CommentsList extends Component {
         {this.props.comments.map(comment =>(
           <ItemComment
             key={comment.id}
-            voteButton={(id, option) => this.voteButtonPress(id, option)}
-            deleteButton={(id) => this.deleteButtonPress(id)}
             comment={comment}
-            fetchComment={id => this.props.fetchComment(id)}
-            isEditingComment={status => this.props.isEditingComment(status)}
+            recommendAction={(id, option, callback) => this.recommendAction(id, option, callback)}
+            deleteAction={commentId => this.deleteAction(commentId)}
+            editComment={commentId => this.props.editComment(commentId)}
+            // isEditingComment={status => this.props.isEditingComment(status)}
           />
         ))}
       </div>
@@ -48,14 +51,12 @@ const mapStateToProps = state => {
   return {comments: state.comments.comments};
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
-    isEditingComment: status => dispatch(isEditingComment(status)),
-    fetchComments: () => dispatch(commentsFetch(ownProps.id)),
-    // deleteCommentPost: id => dispatch(deleteCommentPost(ownProps.id))
+    fetchComments: (id) => dispatch(commentsFetch(id)),
     deleteCommentPost: (id, callback) => dispatch(deleteCommentPost(id, callback)),
-    voteCommentPost: (id, option) => dispatch(voteCommentPost(id, option))
-  };
+    voteCommentPost: (id, option, callback) => dispatch(voteCommentPost(id, option, callback))
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentsList);

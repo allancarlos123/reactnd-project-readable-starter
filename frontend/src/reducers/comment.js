@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {
   IS_EDITING_COMMENT,
   COMMENT_FETCH_ERROR,
