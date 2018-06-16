@@ -7,20 +7,20 @@ import ItemComment from "./Item";
 
 class CommentsList extends Component {
   componentDidMount() {
-    const id = this.props.match.params.id
-    this.props.fetchComments(id)
+    const {postId} = this.props
+    this.props.fetchComments(postId)
   }
-  
+
   deleteAction(commentId, callback) {
-    const postId = this.props.match.params.id
+    const {postId} = this.props
 
     this.props.deleteCommentPost(commentId, () => {
       this.props.fetchComments(postId)
     })
   }
-  
+
   recommendAction(id, option) {
-    const postId = this.props.match.params.id
+    const {postId} = this.props
     const {voteCommentPost, fetchComments} = this.props
     voteCommentPost(id, option, () => fetchComments(postId))
   }

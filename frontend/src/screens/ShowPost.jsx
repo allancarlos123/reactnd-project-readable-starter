@@ -7,8 +7,7 @@ import {commentFetch, isEditingComment} from "./../actions/comments";
 import { Grid } from "semantic-ui-react";
 import Header from "./../components/Header/Header";
 import PostShow from "./../components/Post/Show";
-import CommentsList from "./../components/Comment/List";
-import CommentForm from "./../components/Comment/Form";
+import CommentsContainer from "./../containers/Comments";
 
 class ShowPostScreen extends Component {
   componentDidMount() {
@@ -26,19 +25,18 @@ class ShowPostScreen extends Component {
     fetchComment(commentId)
     isEditingComment(true)
   }
-  
-  render() {       
+
+  render() {
     return (
       <Grid columns={1} container>
         <Grid.Column>
           <Header />
         </Grid.Column>
-    
+
         <Grid.Column>
           <PostShow {...this.props.post} deletePost={() => this.deletePost()} />
-    
-          <CommentsList {...this.props} editComment={() => this.editComment()} />
-          <CommentForm {...this.props} comment={this.props.comment} />
+
+          <CommentsContainer {...this.props} />
         </Grid.Column>
       </Grid>
     )
@@ -47,35 +45,15 @@ class ShowPostScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    post: state.post,
-    comment: state.comment
+    post: state.post
   }
-  // const isEditingComment = state.comment.isEditing
-  
-  // if (isEditingComment) {
-  //   return {
-  //     comment: state.comment,
-  //     initialValues: state.comment.comment
-  //   }
-  // } else {
-  //   return {
-  //     comment: state.comment
-  //   }
-  // }
 }
 
-const mapDispatchToProps = dispatch => {  
+const mapDispatchToProps = dispatch => {
   return {
-    fetchComment: commentId => console.log('2', commentId),
     fetchPost: id => dispatch(postFetch(id)),
     deletePost: (id, callback) => dispatch(deletePost(id, callback)),
-    isEditingComment: status => dispatch(isEditingComment(status))
   }
-  
-  // return {
-    // isEditingComment: status => dispatch(isEditingComment(status)),
-    // fetchComment: id => dispatch(commentFetch(id))
-  // }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ShowPostScreen));
