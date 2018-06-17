@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { postFetch, deletePost } from "./../../actions/posts";
 
-import { Container, Header } from "semantic-ui-react";
+import { Container, Header, Icon, Button } from "semantic-ui-react";
 
 class PostShow extends Component {
   componentDidMount() {
@@ -24,10 +24,20 @@ class PostShow extends Component {
         </Container>
 
         <Container text>
-          <Link to={`/${this.props.post.category}/${this.props.id}/edit`}>Edit Post</Link>
+          <Button animated='vertical' as={Link} to={`/${this.props.post.category}/${this.props.id}/edit`}>
+            <Button.Content hidden>Edit</Button.Content>
+              <Button.Content visible>
+                <Icon name='pencil' />
+            </Button.Content>
+          </Button>
 
-          &nbsp;&nbsp;
-          <button onClick={() => this.deletePost()}>Delete post</button>
+          <Button animated='vertical' onClick={() => this.deletePost()}>
+            <Button.Content hidden>Delete</Button.Content>
+              <Button.Content visible>
+                <Icon name='trash' />
+            </Button.Content>
+          </Button>
+
           <p>{this.props.post.body}</p>
         </Container>
       </div>
