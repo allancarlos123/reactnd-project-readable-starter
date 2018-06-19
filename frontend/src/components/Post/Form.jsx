@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, destroy } from 'redux-form';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { createPost, postFetch, editPost } from './../../actions/posts';
@@ -28,6 +28,7 @@ class PostForm extends Component {
     } else {
       this.props.createPost(values, () => history.push('/'))
     }
+      this.props.limpar('PostForm')
   }
 
   render() {
@@ -98,13 +99,16 @@ const mapDispatchToProps = dispatch => {
     createPost: (values, callback) => dispatch(createPost(values, callback)),
     editPost: (id, values, callback) => dispatch(editPost(id, values, callback)),
     categoriesFetch: () => dispatch(categoriesFetch()),
-    postFetch: id => dispatch(postFetch(id))
+    postFetch: id => dispatch(postFetch(id)),
+    limpar: form => dispatch(destroy(form))
   }
 }
 
+
 PostForm = reduxForm({
   form: 'PostForm',
-  enableReinitialize: true
+  enableReinitialize: true,
+  onSubmitSuccess: console.log('foi')
 })(PostForm);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostForm))

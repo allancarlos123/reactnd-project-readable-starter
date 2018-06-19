@@ -154,10 +154,11 @@ export function editCommentSuccess(data) {
 
 export const EDIT_COMMENT = "EDIT_COMMENT";
 export function editComment(id, values, callback) {
-  const { body } = values;
+  const { body, author } = values;
 
   const data = {
     timestamp : Date.now(),
+    author,
     body
   }
 
