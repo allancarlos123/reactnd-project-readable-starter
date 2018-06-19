@@ -69,12 +69,7 @@ class CommentForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    comment: state.comment,
-    comments: state.comments.comments
-  }
-}
+const mapStateToProps = ({comment, comments}) => ({comment, comments: comments.comments})
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
