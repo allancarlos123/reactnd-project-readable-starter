@@ -8,12 +8,14 @@ import {InputField, TextAreaField} from 'react-semantic-redux-form';
 
 class CommentForm extends Component { 
   onSubmit(values) {
-    const isEditingComment = this.props.comment.isEditing;
+    const isEditing = this.props.comment.isEditing;
 
-    if (isEditingComment) {
+    if (isEditing) {
       const commentId = this.props.comment.comment.id
       this.props.editComment(commentId, values, () => {
         this.props.fetchComments()
+        this.props.isEditingComment(false)
+
       })
     } else {
       const postId = this.props.id;
@@ -24,12 +26,12 @@ class CommentForm extends Component {
     
   }
 
-  cancelEdit(e) {
+  cancelEdit() {
     this.props.isEditingComment(false)
   }
 
   render() {
-    const {handleSubmit} = this.props;
+    const {handleSubmit, comment: {isEditing}} = this.props;
 
     return (
       <div>
@@ -49,15 +51,15 @@ class CommentForm extends Component {
           <Form.Field
             control={Button}
             type="submit"
-            content='Add Comment'
+            content={isEditing ? 'Edit Comment' : 'Create Comment'}
             labelPosition='left'
             icon='edit'
             primary>
           </Form.Field>
 
-          {this.props.comment.isEditing &&
+          {isEditing &&
             <Button
-              onClick={(e) => this.cancelEdit(e)}
+              onClick={() => this.cancelEdit()}
               content="Cancel"
             />
           }
