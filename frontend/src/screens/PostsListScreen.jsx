@@ -4,6 +4,7 @@ import { Grid } from "semantic-ui-react";
 import Header from "./../components/Header/Header";
 import PostsList from "./../components/Post/List";
 import CategoriesList from "./../components/Category/List";
+import ButtonCreatePost from './../components/UI/Button/CreatePost';
 
 export default function PostsListScreen(props) {
     return (
@@ -14,6 +15,10 @@ export default function PostsListScreen(props) {
 
         <Grid.Column mobile={16}>
           <CategoriesList category={props.category} />
+        </Grid.Column>
+
+        <Grid.Column mobile={16} computer={3}>
+          <ButtonCreatePost />
         </Grid.Column>
 
         <Grid.Column>
