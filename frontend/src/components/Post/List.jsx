@@ -8,12 +8,17 @@ import ItemPost from "./Item";
 class PostsList extends Component {
   componentDidMount() {
     const {fetchPosts, fetchPostsByCategory, match} = this.props
-
+    
     if (typeof match !== 'undefined') {
       fetchPostsByCategory(match.params.category)
     } else {
       fetchPosts()
     }
+  }
+  
+  componentWillUpdate() {
+    const {fetchPosts, fetchPostsByCategory, match} = this.props
+    typeof match !== 'undefined' && fetchPostsByCategory(match.params.category)
   }
 
   render() {
