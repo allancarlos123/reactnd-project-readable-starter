@@ -10,9 +10,7 @@ export function posts(
   state = {
     isFetching: false,
     fetchError: false,
-    posts: [],
-    id: "",
-    option: ""
+    posts: []
   },
   action
 ) {
