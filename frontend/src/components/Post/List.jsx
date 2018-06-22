@@ -21,13 +21,19 @@ class PostsList extends Component {
     typeof match !== 'undefined' && fetchPostsByCategory(match.params.category)
   }
 
+  votePost(id, option) {
+    this.props.votePost(id, option, () => {
+      this.props.fetchPosts()
+    })
+  }
+
   render() {
     return (
       this.props.posts.map(post => (
         <ItemPost
           key={post.id}
           post={post}
-          votePost={(id, option) => this.props.votePost(id, option)}
+          votePost={(id, option) => this.votePost(id, option)}
         />
       ))
     )
@@ -44,7 +50,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchPostsByCategory: category => dispatch(postsFetchByCategory(category)),
     fetchPosts: () => dispatch(postsFetch()),
-    votePost: (id, option) => dispatch(votePost(id, option))
+    votePost: (id, option, callback) => dispatch(votePost(id, option, callback))
   };
 };
 

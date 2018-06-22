@@ -26,7 +26,7 @@ class CommentsList extends Component {
     return (
       <div>
         <Header as='h3' dividing>
-          Comments
+          Comments ({this.props.comments.length})
         </Header>
 
         {this.props.comments.map(comment =>(

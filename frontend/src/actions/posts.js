@@ -48,7 +48,7 @@ export function unlikePost(id) {
   return {type: UNLIKE_POST, id};
 }
 
-export function votePost(id, option) {
+export function votePost(id, option, callback) {
   return dispatch => {
     return ReadbleAPI
       .votePost(id, option)
@@ -58,7 +58,7 @@ export function votePost(id, option) {
         } else {
           dispatch(unlikePost(id));
         }
-        dispatch(postsFetch())
+        callback()
       }, err => console.log("deu erro!"));
   };
 }
