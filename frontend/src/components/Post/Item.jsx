@@ -22,6 +22,20 @@ export default class ItemPost extends Component {
                 </Item.Meta>
                 <Item.Description>{this.props.post.body}</Item.Description>
                 <Item.Extra>
+                  <Button size="mini" animated='vertical' as={Link} to={`/${this.props.post.category}/${this.props.post.id}/edit`}>
+                    <Button.Content hidden>Edit</Button.Content>
+                    <Button.Content visible>
+                      <Icon name='pencil' />
+                    </Button.Content>
+                  </Button>
+
+                  <Button size="mini" animated='vertical' onClick={() => this.props.deletePost(this.props.post.id)}>
+                    <Button.Content hidden>Delete</Button.Content>
+                    <Button.Content visible>
+                      <Icon name='trash' />
+                    </Button.Content>
+                  </Button>
+
                   <Button
                     basic
                     size="mini"

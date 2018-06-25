@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {postsFetch, votePost, postsFetchByCategory} from "./../../actions/posts";
+import {postsFetch, votePost, postsFetchByCategory, deletePost} from "./../../actions/posts";
 
 import ItemPost from "./Item";
 
@@ -27,6 +27,12 @@ class PostsList extends Component {
     })
   }
 
+  deletePost(id) {
+    const { deletePost, history } = this.props
+
+    deletePost(id, () => this.props.fetchPosts())
+  }
+
   render() {
     return (
       this.props.posts.map(post => (
@@ -34,6 +40,7 @@ class PostsList extends Component {
           key={post.id}
           post={post}
           votePost={(id, option) => this.votePost(id, option)}
+          deletePost={id => this.deletePost(id)}
         />
       ))
     )
@@ -49,8 +56,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchPostsByCategory: category => dispatch(postsFetchByCategory(category)),
+    // fetchPost: id => dispatch(postFetch(id)),
     fetchPosts: () => dispatch(postsFetch()),
-    votePost: (id, option, callback) => dispatch(votePost(id, option, callback))
+    votePost: (id, option, callback) => dispatch(votePost(id, option, callback)),
+    deletePost: (id, callback) => dispatch(deletePost(id, callback))
   };
 };
 
