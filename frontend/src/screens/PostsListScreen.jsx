@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import {Grid, Menu} from "semantic-ui-react";
+import {Grid} from "semantic-ui-react";
 
 import Header from "./../components/Header/Header";
 import PostsList from "./../components/Post/List";
+import SortBy from "./../components/Post/SortBy";
 import CategoriesList from "./../components/Category/List";
 import ButtonCreatePost from './../components/UI/Button/CreatePost';
 
@@ -31,19 +32,7 @@ export default class PostsListScreen extends Component {
         </Grid.Column>
 
         <Grid.Column computer={4}>
-          <Menu text vertical>
-            <Menu.Item header>Sort By</Menu.Item>
-            <Menu.Item
-              name='recently'
-              active={activeSortBy === 'recently'}
-              onClick={this.handleSortBy}
-            />
-            <Menu.Item
-              name='mostPopular'
-              active={activeSortBy === 'mostPopular'}
-              onClick={this.handleSortBy}
-            />
-          </Menu>
+          <SortBy activeSortBy={activeSortBy} handleSortBy={this.handleSortBy} />
         </Grid.Column>
 
         <Grid.Column computer={12}>

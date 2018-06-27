@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Grid, Menu} from "semantic-ui-react";
+import {Grid} from "semantic-ui-react";
 
 import Header from "./../components/Header/Header";
 import PostsList from "./../components/Post/List";
