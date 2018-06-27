@@ -107,8 +107,7 @@ const mapDispatchToProps = dispatch => {
 
 PostForm = reduxForm({
   form: 'PostForm',
-  enableReinitialize: true,
-  onSubmitSuccess: console.log('foi')
+  enableReinitialize: true
 })(PostForm);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostForm))
