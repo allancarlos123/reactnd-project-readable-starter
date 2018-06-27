@@ -16,9 +16,16 @@ class PostsList extends Component {
     }
   }
   
-  componentWillUpdate() {
+  // componentWillReceiveProps(nextProps) {
+  componentDidUpdate(previousProps) {
     const {fetchPosts, fetchPostsByCategory, match} = this.props
-    typeof match !== 'undefined' && fetchPostsByCategory(match.params.category)
+
+    if (typeof match !== 'undefined' && match.params.category !== previousProps.match.params.category) {
+      fetchPostsByCategory(match.params.category)
+    }
+    
+    // console.log(nextProps)
+    // typeof match !== 'undefined' && fetchPostsByCategory(match.params.category)
   }
 
   votePost(id, option) {
@@ -47,8 +54,15 @@ class PostsList extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const posts = _.orderBy(state.posts.posts, 'timestamp', 'desc')
+const mapStateToProps = (state, ownProps) => {
+  // const posts = _.orderBy(state.posts.posts, 'timestamp', 'desc')
+  let posts = state.posts.posts
+
+  if (ownProps.sortBy === 'recently') {
+    posts = _.orderBy(state.posts.posts, 'timestamp', 'desc')
+  } else if (ownProps.sortBy === 'mostPopular') {
+    posts = _.orderBy(state.posts.posts, 'voteScore', 'desc')
+  }
 
   return {posts: posts};
 };
