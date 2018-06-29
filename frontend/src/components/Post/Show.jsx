@@ -13,7 +13,7 @@ class PostShow extends Component {
 
   votePost(id, option) {
     this.props.votePost(id, option, () => {
-      this.props.fetchPost(this.props.post.id)
+      this.props.postFetch(this.props.post.id)
     })
   }
 

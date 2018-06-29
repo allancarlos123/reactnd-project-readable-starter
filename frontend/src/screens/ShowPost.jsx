@@ -27,11 +27,7 @@ class ShowPostScreen extends Component {
         <Grid.Column>
           <Header />
         </Grid.Column>
-    
-        {/* <Grid.Column mobile={16}>
-          <CategoriesList />
-        </Grid.Column> */}
-    
+
         <Grid.Column>
           <PostShow {...this.props} />
     
@@ -43,24 +39,12 @@ class ShowPostScreen extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const isEditingComment = state.comment.isEditing
-  
-  if (isEditingComment) {
-    return {
-      comment: state.comment,
-      initialValues: state.comment.comment,
-      post: state.post.post,
-      postFetching: state.post.isFetching
-    }
-  } else {
-    return {
-      comment: state.comment,
-      post: state.post.post,
-      postFetching: state.post.isFetching
-    }
-  }
-}
+const mapStateToProps = ({ comment, post }) => ({  
+  comment,
+  initialValues: comment.isEditing ? comment.comment : undefined,
+  post: post.post,
+  postFecthing: post.isFetching
+})
 
 const mapDispatchToProps = dispatch => {
   return {
