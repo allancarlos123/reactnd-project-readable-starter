@@ -44,29 +44,43 @@ class PostForm extends Component {
         </Header>
 
         <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field name='title' component={InputField} label='Title' placeholder='Title' />
+          <Field
+            required
+            name='title'
+            component={InputField}
+            label='Title'
+            placeholder='Title'
+          />
 
           <Field
+            required
             name='body'
             component={TextAreaField}
             label='Content'
-            placeholder='Content' /> {typeof match.params.id === 'undefined' && <div>
+            placeholder='Content'
+          />
+
+            {typeof match.params.id === 'undefined' && <div>
               <Field
+                required
                 name='author'
                 component={InputField}
                 label='Author'
-                placeholder='Author' />
+                placeholder='Author'
+              />
 
               <Field
+                required
                 component={SelectField}
                 name='category'
                 label="Choose a category"
                 placeholder="Choose a category"
-                options={_.map(categories.categories, category => ({ key: category.name, value: category.name, text: category.name }))} />
+                options={_.map(categories.categories, category => ({ key: category.name, value: category.name, text: category.name }))}
+              />
             </div>
           }
 
-          <Form.Field control={Button} type='submit' disabled={pristine || submitting}>
+          <Form.Field control={Button} type='submit' disabled={submitting}>
             {typeof this.props.match.params.id !== 'undefined'
               ? "Edit post"
               : "Create post"}
