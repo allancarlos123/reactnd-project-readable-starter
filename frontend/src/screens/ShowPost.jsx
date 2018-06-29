@@ -18,10 +18,7 @@ class ShowPostScreen extends Component {
   render() {
     const { post, postFetching } = this.props
 
-    console.log('step1',postFetching)
-    
     if (!postFetching && Object.keys(post).length === 0) {
-      console.log('step2',postFetching)
       return <Page404/>
     }
 
