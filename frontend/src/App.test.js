@@ -1,4 +1,5 @@
 import "jest-localstorage-mock";
+import "match-media";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';

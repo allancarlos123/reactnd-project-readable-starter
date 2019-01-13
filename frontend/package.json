@@ -1,17 +1,12 @@
 {
   "name": "frontend",
-  "jest": {
-    "setupFiles": [
-      "jest-localstorage-mock"
-    ]
-  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
     "faker": "^4.1.0",
     "moment": "^2.22.2",
-    "react": "^16.3.1",
+    "react": "^16.7.0",
     "react-dom": "^16.3.1",
     "react-redux": "^5.0.7",
     "react-redux-form": "^1.16.8",
@@ -33,6 +28,7 @@
   },
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.0",
+    "match-media": "^0.2.0",
     "react-test-renderer": "^16.7.0"
   }
 }
