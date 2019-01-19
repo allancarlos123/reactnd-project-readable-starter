@@ -2,8 +2,23 @@ import React, {Component} from "react";
 import moment from "moment";
 import {Item, Label, Button, Icon, Segment} from "semantic-ui-react";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default class ItemPost extends Component {
+  static propTypes = {
+    post: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      timestamp: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      category: PropTypes.string.isRequired,
+      voteScore: PropTypes.number.isRequired,
+      deleted: PropTypes.bool.isRequired,
+      commentCount: PropTypes.number.isRequired,
+    })
+  }
+  
   render() {
     return (
       <Segment.Group>
@@ -22,14 +37,14 @@ export default class ItemPost extends Component {
                 </Item.Meta>
                 <Item.Description>{this.props.post.body}</Item.Description>
                 <Item.Extra>
-                  <Button size="mini" animated='vertical' as={Link} to={`/${this.props.post.category}/${this.props.post.id}/edit`}>
+                  <Button className="edit-post" size="mini" animated='vertical' as={Link} to={`/${this.props.post.category}/${this.props.post.id}/edit`}>
                     <Button.Content hidden>Edit</Button.Content>
                     <Button.Content visible>
                       <Icon name='pencil' />
                     </Button.Content>
                   </Button>
 
-                  <Button size="mini" animated='vertical' onClick={() => this.props.deletePost(this.props.post.id)}>
+                  <Button className="delete-post" size="mini" animated='vertical' onClick={() => this.props.deletePost(this.props.post.id)}>
                     <Button.Content hidden>Delete</Button.Content>
                     <Button.Content visible>
                       <Icon name='trash' />
@@ -37,6 +52,7 @@ export default class ItemPost extends Component {
                   </Button>
 
                   <Button
+                    className="increment-post"
                     basic
                     size="mini"
                     icon
@@ -44,6 +60,7 @@ export default class ItemPost extends Component {
                     <Icon name="chevron up"/>
                   </Button>
                   <Button
+                    className="decrement-post"
                     basic
                     size="mini"
                     icon
@@ -52,17 +69,16 @@ export default class ItemPost extends Component {
                   </Button>
                   {this.props.post.voteScore > 0
                     ? (
-                      <Label circular color="green">
+                      <Label className="vote-score" circular color="green">
                         {this.props.post.voteScore}
                       </Label>
                     )
                     : (
-                      <Label circular color="red">
+                      <Label className="vote-score" circular color="red">
                         {this.props.post.voteScore}
                       </Label>
                     )}
-                  <Icon name="comment outline"/> {this.props.post.commentCount}
-                  comments
+                  <Icon name="comment outline"/>{this.props.post.commentCount} comments
                 </Item.Extra>
               </Item.Content>
             </Item>
